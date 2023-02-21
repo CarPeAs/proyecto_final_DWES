@@ -4,8 +4,32 @@
 
 Diseño de una aplicación web de tienda virtual programada en lenguaje PHP y MySql para la asignatura de **Desarrollo Web Entorno Servidor (DWES)**.
 
-## PHP
-Use de PHP Data Objects PDO para el acceso a la base de datos.
+## Planteamiento práctica final.
+
+### Organización de la página:
+En la página principal, aparecé una cabecera con logotipo o imagen de la empresa, y debajo un menú con los apartados Inicio, Conocenos(quienes somos), Catalogo, Pedidos y contacto.
+
+En la zona central de la para navegar por las distintas categorías y subcategorías, en la que si pinchamos sobre ellas se mostrarán los artículos incluidos en estas.
+
+En la zona de la derecha, un formulario para loguearse, o registrarse.
+
+Un pie de página **(Footer)** con las opciones comunes de información sobre la tienda, negocio, etc.
+
+La cabecera **(Header)**  y el pie de página **(Footer)** se ven en todo momento se ven en todo momento durante la navegación y lo que cambia es nuestro “centro” de la página.
+
+Opciones que aparecen en el menú:
+- Inicio
+- Conocenos
+- Pedidos
+- Catalogo
+- Contactanos
+
+Una vez que el usuario ya se ha logueado, aparecé el nombre del usuario actualmente conectado, junto a un botón de cerrar sesión así como el acceso a sus datos y pedidos.
+
+## Lenguajes de programación usados
+Uso de PHP y MySql, así como PHP Data Objects PDO para el acceso a la base de datos para el backend.
+
+Para el frontend uso de Javascript, así como html y css.
 
 ## Funcionamiento de la web
 ### Perfiles usuarios

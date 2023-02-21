@@ -3,18 +3,20 @@
    <section class="grid">
 
       <div class="box">
-         <h3>links</h3>
-         <a href="home.php"> <i class="fas fa-angle-right"></i> Inicio</a>
-         <a href="shop.php"> <i class="fas fa-angle-right"></i> comprar</a>
-         <a href="contact.php"> <i class="fas fa-angle-right"></i> Contacto</a>
+         <h3>Enlaces</h3>
+         <a href="index.php"> <i class="fas fa-angle-right"></i> Inicio</a>
+         <a href="informacion.php"> <i class="fas fa-angle-right"></i>Conocenos</a>
+         <a href="catalogo.php"> <i class="fas fa-angle-right"></i>Catalogo</a>
+         <a href="usuario_login.php"> <i class="fas fa-angle-right"></i>Acceso</a>
+         <a href="registro_usuario.php"> <i class="fas fa-angle-right"></i>Registrate</a>
       </div>
 
       <div class="box">
-         <h3>extra links</h3>
-         <a href="user_login.php"> <i class="fas fa-angle-right"></i> acceso</a>
-         <a href="user_register.php"> <i class="fas fa-angle-right"></i> registrate</a>
-         <a href="cart.php"> <i class="fas fa-angle-right"></i> cesta</a>
-         <a href="orders.php"> <i class="fas fa-angle-right"></i> pedidos</a>
+         <h3>Textos legales</h3>
+         <a href="pol_privacidad.php"> <i class="fas fa-angle-right"></i>Política de privacidad</a>
+         <a href="#"> <i class="fas fa-angle-right"></i>Aviso legal</a>
+         <a href="#"> <i class="fas fa-angle-right"></i>Política de cookies</a>
+         <a href="#"> <i class="fas fa-angle-right"></i>Condiciones generales</a>
       </div>
 
       <div class="box">
@@ -26,14 +28,15 @@
 
       <div class="box">
          <h3>Redes sociales</h3>
-         <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
-         <a href="#"><i class="fab fa-twitter"></i>twitter</a>
-         <a href="#"><i class="fab fa-instagram"></i>instagram</a>
-         <a href="#"><i class="fab fa-linkedin"></i>linkedin</a>
+         <a href="#"><i class="fab fa-facebook-f"></i>Facebook</a>
+         <a href="#"><i class="fab fa-twitter"></i>Twitter</a>
+         <a href="#"><i class="fab fa-instagram"></i>Instagram</a>
+         <a href="#"><i class="fab fa-linkedin"></i>Linkedin</a>
       </div>
 
+     
    </section>
 
-   <div class="credit">&copy; copyright @ <?= date('Y'); ?>  <span>COPA</span> | !Todo los derechos reservados!</div>
+   <div class="autoria">&copy; copyright @ <?= date('Y'); ?>  <span>COPA</span> | !Todo los derechos reservados!</div>
 
 </footer>

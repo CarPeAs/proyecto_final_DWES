@@ -40,10 +40,7 @@ if(isset($_POST['enviar'])){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>login</title>
    
-   <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -60,7 +57,7 @@ if(isset($_POST['enviar'])){
       <input type="password" name="pass" required placeholder="escriba tu contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="submit" value="accede ahora" class="btn" name="enviar">
       <p>¿No tienes una cuenta?</p>
-      <a href="user_register.php" class="option-btn">registrate ahora</a>
+      <a href="registro_usuario.php" class="option-btn">registrate ahora</a>
    </form>
 
 </section>

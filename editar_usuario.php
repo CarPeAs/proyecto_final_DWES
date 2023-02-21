@@ -2,8 +2,6 @@
 
 include 'config/conectar_bd.php';
 
-session_start();
-
 if(isset($_SESSION['user_id'])){
     $id_usuario = $_SESSION['user_id'];
 }else{
@@ -69,9 +67,9 @@ if(isset($_POST['enviar'])){
 
    <form action="" method="post">
       <h3>Actualiza tus datos</h3>
-      <input type="hidden" name="pass_previo" value="<?= $fetch_usuario["clave"]; ?>">
-      <input type="text" name="nombre" required placeholder="enter your username" maxlength="20"  class="box" value="<?= $fetch_usuario["nombre"]; ?>">
-      <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')" value="<?= $fetch_usuario["email"]; ?>">
+      <input type="hidden" name="pass_previo" value="<?= $fetch_profile["clave"]; ?>">
+      <input type="text" name="nombre" required placeholder="enter your username" maxlength="20"  class="box" value="<?= $fetch_profile["nombre"]; ?>">
+      <input type="email" name="email" required placeholder="enter your email" maxlength="50"  class="box" oninput="this.value = this.value.replace(/\s/g, '')" value="<?= $fetch_profile["email"]; ?>">
       <input type="password" name="pass_antiguo" placeholder="introduce tu antigua contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass_nuevo" placeholder="introduce tu nueva contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass_nuevo" placeholder="repite tu nueva contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">

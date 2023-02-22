@@ -4,7 +4,7 @@
 
       <div class="box">
          <h3>Enlaces</h3>
-         <a href="index.php"> <i class="fas fa-angle-right"></i> Inicio</a>
+         <a href="admin/admin_login.php"> <i class="fas fa-angle-right"></i> Acceso Administrador</a>
          <a href="informacion.php"> <i class="fas fa-angle-right"></i>Conocenos</a>
          <a href="catalogo.php"> <i class="fas fa-angle-right"></i>Catalogo</a>
          <a href="usuario_login.php"> <i class="fas fa-angle-right"></i>Acceso</a>

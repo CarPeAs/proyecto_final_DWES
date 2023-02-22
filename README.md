@@ -42,3 +42,16 @@ Cuando se “loguean” y han accedido al sistema tienen acceso a opciones de ed
 Todas estan opciones estan siempre visible mientras navega el usuario por la web.
 
 La contraseña se guarda encriptada con una función **sha1**.
+
+### Usuario
+Navegante o usuario sin registro que simplemente navega por la página sin loguearse. 
+
+El cliente registrado, además podrá:
+- Modificar su perfil (email,contraseña).
+- Ver/editar sus pedidos (datos del pedido, además del estado de los mismos, etc.)
+
+### Editor
+Editor o empleado con acceso a mantenimiento (altas, bajas y modificaciones) de artículos, categorías y pedidos.
+
+### Administrador 
+Superusuario, que podrá hacer todo lo que puede hacer el usuario editor, más el mantenimiento de empleados y otros administradores.

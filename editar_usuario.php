@@ -2,6 +2,10 @@
 
 include 'config/conectar_bd.php';
 
+session_start();
+
+$admin_id = $_SESSION['admin_id'];
+
 if(isset($_SESSION['user_id'])){
     $id_usuario = $_SESSION['user_id'];
 }else{

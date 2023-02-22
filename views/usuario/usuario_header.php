@@ -35,7 +35,7 @@ include 'config/conectar_bd.php';
             $total_articulos_cesta = $articulos_cesta->rowCount();
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
-         <a href="search_page.php"><i class="fas fa-search"></i></a>
+         <a href="busqueda.php"><i class="fas fa-search"></i></a>
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_articulos_cesta;?>)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
       </div>

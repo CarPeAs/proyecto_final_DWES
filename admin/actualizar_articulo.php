@@ -13,71 +13,71 @@ if(!isset($admin_id)){
 if(isset($_POST['actualizar'])){
 
    $pid = $_POST['pid'];
-   $name = $_POST['nombre'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
-   $price = $_POST['precio'];
-   $price = filter_var($price, FILTER_SANITIZE_STRING);
-   $details = $_POST['descripcion'];
-   $details = filter_var($details, FILTER_SANITIZE_STRING);
+   $nombre = $_POST['nombre'];
+   $nombre = filter_var($nombre, FILTER_SANITIZE_STRING);
+   $precio = $_POST['precio'];
+   $precio = filter_var($precio, FILTER_SANITIZE_STRING);
+   $descripcion = $_POST['descripcion'];
+   $descripcion = filter_var($descripcion, FILTER_SANITIZE_STRING);
 
-   $update_product = $conex->prepare("UPDATE articulos SET nombre = ?, precio = ?, descripcion = ? WHERE id = ?");
-   $update_product->execute([$name, $price, $details, $pid]);
+   $editar_articulo = $conex->prepare("UPDATE articulos SET nombre = ?, precio = ?, descripcion = ? WHERE id = ?");
+   $editar_articulo->execute([$nombre, $precio, $descripcion, $pid]);
 
    $mensaje[] = 'producto actualizado correctamente';
 
-   $old_image_01 = $_POST['old_image_01'];
-   $image_01 = $_FILES['imagen_01']['name'];
-   $image_01 = filter_var($image_01, FILTER_SANITIZE_STRING);
-   $image_size_01 = $_FILES['imagen_01']['size'];
-   $image_tmp_name_01 = $_FILES['imagen_01']['tmp_name'];
-   $image_folder_01 = '../img_catalogo/'.$image_01;
+   $ant_imagen_01 = $_POST['old_image_01'];
+   $imagen_01 = $_FILES['imagen_01']['name'];
+   $imagen_01 = filter_var($imagen_01, FILTER_SANITIZE_STRING);
+   $tam_imagen_01 = $_FILES['imagen_01']['size'];
+   $nom_imagen_tmp_01 = $_FILES['imagen_01']['tmp_name'];
+   $carpeta_imagen_01 = '../img_catalogo/'.$imagen_01;
 
-   if(!empty($image_01)){
-      if($image_size_01 > 2000000){
+   if(!empty($imagen_01)){
+      if($tam_imagen_01 > 2000000){
          $mensaje[] = 'El tamaño de la imagen es demasiado grande';
       }else{
-         $update_image_01 = $conex->prepare("UPDATE articulos SET imagen_01 = ? WHERE id = ?");
-         $update_image_01->execute([$image_01, $pid]);
-         move_uploaded_file($image_tmp_name_01, $image_folder_01);
-         unlink('../img_catalogo/'.$old_image_01);
+         $editar_imagen_01 = $conex->prepare("UPDATE articulos SET imagen_01 = ? WHERE id = ?");
+         $editar_imagen_01->execute([$imagen_01, $pid]);
+         move_uploaded_file($nom_imagen_tmp_01, $carpeta_imagen_01);
+         unlink('../img_catalogo/'.$ant_imagen_01);
          $mensaje[] = 'imagen 01 actualizada correctamente';
       }
    }
 
-   $old_image_02 = $_POST['old_image_02'];
-   $image_02 = $_FILES['imagen_02']['name'];
-   $image_02 = filter_var($image_02, FILTER_SANITIZE_STRING);
-   $image_size_02 = $_FILES['imagen_02']['size'];
-   $image_tmp_name_02 = $_FILES['imagen_02']['tmp_name'];
-   $image_folder_02 = '../img_catalogo/'.$image_02;
+   $ant_imagen_02 = $_POST['old_image_02'];
+   $imagen_02 = $_FILES['imagen_02']['name'];
+   $imagen_02 = filter_var($imagen_02, FILTER_SANITIZE_STRING);
+   $tam_imagen_02 = $_FILES['imagen_02']['size'];
+   $nom_imagen_tmp_02 = $_FILES['imagen_02']['tmp_name'];
+   $carpeta_imagen_02 = '../img_catalogo/'.$imagen_02;
 
-   if(!empty($image_02)){
-      if($image_size_02 > 2000000){
+   if(!empty($imagen_02)){
+      if($tam_imagen_02 > 2000000){
          $mensaje[] = 'El tamaño de la imagen es demasiado grande';
       }else{
-         $update_image_02 = $conex->prepare("UPDATE articulos SET imagen_02 = ? WHERE id = ?");
-         $update_image_02->execute([$image_02, $pid]);
-         move_uploaded_file($image_tmp_name_02, $image_folder_02);
-         unlink('../img_catalogo/'.$old_image_02);
+         $editar_imagen_02 = $conex->prepare("UPDATE articulos SET imagen_02 = ? WHERE id = ?");
+         $editar_imagen_02->execute([$imagen_02, $pid]);
+         move_uploaded_file($nom_imagen_tmp_02, $carpeta_imagen_02);
+         unlink('../img_catalogo/'.$ant_imagen_02);
          $mensaje[] = 'imagen 02 actualizada correctamente';
       }
    }
 
-   $old_image_03 = $_POST['old_image_03'];
-   $image_03 = $_FILES['imagen_03']['name'];
-   $image_03 = filter_var($image_03, FILTER_SANITIZE_STRING);
-   $image_size_03 = $_FILES['imagen_03']['size'];
-   $image_tmp_name_03 = $_FILES['imagen_03']['tmp_name'];
-   $image_folder_03 = '../img_catalogo/'.$image_03;
+   $ant_imagen_03 = $_POST['old_image_03'];
+   $imagen_03 = $_FILES['imagen_03']['name'];
+   $imagen_03 = filter_var($imagen_03, FILTER_SANITIZE_STRING);
+   $tam_imagen_03 = $_FILES['imagen_03']['size'];
+   $nom_imagen_tmp_03 = $_FILES['imagen_03']['tmp_name'];
+   $carpeta_imagen_03 = '../img_catalogo/'.$imagen_03;
 
-   if(!empty($image_03)){
-      if($image_size_03 > 2000000){
+   if(!empty($imagen_03)){
+      if($tam_imagen_03 > 2000000){
          $mensaje[] = 'El tamaño de la imagen es demasiado grande';
       }else{
          $update_image_03 = $conex->prepare("UPDATE articulos SET imagen_03 = ? WHERE id = ?");
-         $update_image_03->execute([$image_03, $pid]);
-         move_uploaded_file($image_tmp_name_03, $image_folder_03);
-         unlink('../img_catalogo/'.$old_image_03);
+         $update_image_03->execute([$imagen_03, $pid]);
+         move_uploaded_file($nom_imagen_tmp_03, $carpeta_imagen_03);
+         unlink('../img_catalogo/'.$ant_imagen_03);
          $mensaje[] = 'imagen 03 actualizada correctamente';
       }
    }
@@ -108,33 +108,33 @@ if(isset($_POST['actualizar'])){
    <h1 class="heading">editar producto</h1>
 
    <?php
-      $update_id = $_GET['actualizar'];
-      $select_products = $conex->prepare("SELECT * FROM articulos WHERE id = ?");
-      $select_products->execute([$update_id]);
-      if($select_products->rowCount() > 0){
-         while($fetch_products = $select_products->fetch(PDO::FETCH_ASSOC)){ 
+      $id_articulo = $_GET['actualizar'];
+      $selecc_articulo = $conex->prepare("SELECT * FROM articulos WHERE id = ?");
+      $selecc_articulo->execute([$id_articulo]);
+      if($selecc_articulo->rowCount() > 0){
+         while($fetch_articulo = $selecc_articulo->fetch(PDO::FETCH_ASSOC)){ 
    ?>
    <form action="" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="pid" value="<?= $fetch_products['id']; ?>">
-      <input type="hidden" name="old_image_01" value="<?= $fetch_products['imagen_01']; ?>">
-      <input type="hidden" name="old_image_02" value="<?= $fetch_products['imagen_02']; ?>">
-      <input type="hidden" name="old_image_03" value="<?= $fetch_products['imagen_03']; ?>">
+      <input type="hidden" name="pid" value="<?= $fetch_articulo['id']; ?>">
+      <input type="hidden" name="old_image_01" value="<?= $fetch_articulo['imagen_01']; ?>">
+      <input type="hidden" name="old_image_02" value="<?= $fetch_articulo['imagen_02']; ?>">
+      <input type="hidden" name="old_image_03" value="<?= $fetch_articulo['imagen_03']; ?>">
       <div class="image-container">
          <div class="main-image">
-            <img src="../img_catalogo/<?= $fetch_products['imagen_01']; ?>" alt="">
+            <img src="../img_catalogo/<?= $fetch_articulo['imagen_01']; ?>" alt="">
          </div>
          <div class="sub-image">
-            <img src="../img_catalogo/<?= $fetch_products['imagen_01']; ?>" alt="">
-            <img src="../img_catalogo/<?= $fetch_products['imagen_02']; ?>" alt="">
-            <img src="../img_catalogo/<?= $fetch_products['imagen_03']; ?>" alt="">
+            <img src="../img_catalogo/<?= $fetch_articulo['imagen_01']; ?>" alt="">
+            <img src="../img_catalogo/<?= $fetch_articulo['imagen_02']; ?>" alt="">
+            <img src="../img_catalogo/<?= $fetch_articulo['imagen_03']; ?>" alt="">
          </div>
       </div>
       <span>Editar nombre</span>
-      <input type="text" name="nombre" required class="box" maxlength="100" placeholder="nombre del producto" value="<?= $fetch_products['name']; ?>">
+      <input type="text" name="nombre" required class="box" maxlength="100" placeholder="nombre del producto" value="<?= $fetch_articulo['nombre']; ?>">
       <span>Editar precio</span>
-      <input type="number" name="precio" required class="box" min="0" max="9999999999" placeholder="precio del producto" onkeypress="if(this.value.length == 10) return false;" value="<?= $fetch_products['price']; ?>">
+      <input type="number" name="precio" required class="box" min="0" max="9999999999" placeholder="precio del producto" onkeypress="if(this.value.length == 10) return false;" value="<?= $fetch_articulo['precio']; ?>">
       <span>Editar caracteristicas</span>
-      <textarea name="descripcion" class="box" required cols="30" rows="10"><?= $fetch_products['details']; ?></textarea>
+      <textarea name="descripcion" class="box" required cols="30" rows="10"><?= $fetch_articulo['descripcion']; ?></textarea>
       <span>Editar imagen 01</span>
       <input type="file" name="imagen_01" accept="image/jpg, image/jpeg, image/png, image/webp" class="box">
       <span>Editar imagen 02</span>

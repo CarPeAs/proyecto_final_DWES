@@ -36,7 +36,7 @@ include 'config/conectar_bd.php';
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
          <a href="busqueda.php"><i class="fas fa-search"></i></a>
-         <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_articulos_cesta;?>)</span></a>
+         <a href="cesta.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_articulos_cesta;?>)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
       </div>
 

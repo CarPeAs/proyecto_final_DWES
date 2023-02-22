@@ -100,22 +100,22 @@ if(isset($_SESSION['user_id'])){
       <h3>televisión</h3>
    </a>
 
-   <a href="categorias.php?categoria=camera" class="swiper-slide slide">
+   <a href="categorias.php?categoria=camara" class="swiper-slide slide">
       <img src="img/icon-3.png" alt="">
       <h3>camara</h3>
    </a>
 
-   <a href="categorias.php?categoia=mouse" class="swiper-slide slide">
+   <a href="categorias.php?categoia=raton" class="swiper-slide slide">
       <img src="img/icon-4.png" alt="">
       <h3>raton</h3>
    </a>
 
-   <a href="categorias.php?categoria=fridge" class="swiper-slide slide">
+   <a href="categorias.php?categoria=frigorifico" class="swiper-slide slide">
       <img src="img/icon-5.png" alt="">
       <h3>frigoríficos</h3>
    </a>
 
-   <a href="categorias.php?categoria=washing" class="swiper-slide slide">
+   <a href="categorias.php?categoria=lavadora" class="swiper-slide slide">
       <img src="img/icon-6.png" alt="">
       <h3>lavadoras</h3>
    </a>
@@ -125,7 +125,7 @@ if(isset($_SESSION['user_id'])){
       <h3>smartphone</h3>
    </a>
 
-   <a href="categorias.php?categoria=watch" class="swiper-slide slide">
+   <a href="categorias.php?categoria=smartwatch" class="swiper-slide slide">
       <img src="img/icon-8.png" alt="">
       <h3>smartwatch</h3>
    </a>
@@ -147,22 +147,22 @@ if(isset($_SESSION['user_id'])){
    <div class="swiper-wrapper">
 
    <?php
-     $productos_selecc = $conex->prepare("SELECT * FROM articulos LIMIT 6"); 
-     $productos_selecc ->execute();
-     if($productos_selecc ->rowCount() > 0){
-      while($fetch_product = $productos_selecc ->fetch(PDO::FETCH_ASSOC)){
+     $selecc_articulos = $conex->prepare("SELECT * FROM articulos LIMIT 6"); 
+     $selecc_articulos ->execute();
+     if($selecc_articulos ->rowCount() > 0){
+      while($fetch_articulo = $selecc_articulos ->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="swiper-slide slide">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['nombre']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['precio']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['imagen_01']; ?>">
+      <input type="hidden" name="pid" value="<?= $fetch_articulo['id']; ?>">
+      <input type="hidden" name="name" value="<?= $fetch_articulo['nombre']; ?>">
+      <input type="hidden" name="price" value="<?= $fetch_articulo['precio']; ?>">
+      <input type="hidden" name="image" value="<?= $fetch_articulo['imagen_01']; ?>">
       <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_product['imagen_01']; ?>" alt="">
-      <div class="name"><?= $fetch_product['nombre']; ?></div>
+      <a href="quick_view.php?pid=<?= $fetch_articulo['id']; ?>" class="fas fa-eye"></a>
+      <img src="img_catalogo/<?= $fetch_articulo['imagen_01']; ?>" alt="">
+      <div class="name"><?= $fetch_articulo['nombre']; ?></div>
       <div class="flex">
-         <div class="price"><span>€</span><?= $fetch_product['precio']; ?><span>/-</span></div>
+         <div class="price"><span>€</span><?= $fetch_articulo['precio']; ?><span>/-</span></div>
          <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
       </div>
       <input type="submit" value="añadir al carro" class="btn" name="add_to_cart">

@@ -30,14 +30,14 @@ if(isset($_POST['enviar'])){
    $fila = $selec_usuario->fetch(PDO::FETCH_ASSOC);
 
    if($selec_usuario->rowCount() > 0){
-      $mensaje[] = 'el correo electrónico ya existe';
+      $mensaje[] = 'El correo electrónico ya esta registrado. Contacte con el administrador de la web';
    }else{
       if($pass != $cpass){
-         $mensaje[] = 'la contraseña no coincide';
+         $mensaje[] = 'La contraseña no coincide';
       }else{
          $insert_usuario = $conex->prepare("INSERT INTO usuarios (nombre, email, clave) VALUES(?,?,?)");
          $insert_usuario->execute([$nombre, $email, $cpass]);
-         $mensaje[] = 'registrado con éxito, ¡conéctese ahora por favor!';
+         $mensaje[] = 'Registrado con éxito, ¡conéctese ahora por favor!';
       }
    }
 

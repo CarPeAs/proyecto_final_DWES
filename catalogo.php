@@ -45,18 +45,18 @@ if(isset($_SESSION['user_id'])){
    ?>
    <form action="" method="post" class="box">
       <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['nombre']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['precio']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['imagen_01']; ?>">
-      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
+      <input type="hidden" name="nombre" value="<?= $fetch_product['nombre']; ?>">
+      <input type="hidden" name="precio" value="<?= $fetch_product['precio']; ?>">
+      <input type="hidden" name="imagen" value="<?= $fetch_product['imagen_01']; ?>">
+      <!--wish-->
       <a href="quick_view.php?pid=<?= $fetch_productos['id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_productos['imagen_01']; ?>" alt="">
-      <div class="name"><?= $fetch_productos['name']; ?></div>
+      <img src="img_catalogo/<?= $fetch_productos['imagen_01']; ?>" alt="">
+      <div class="name"><?= $fetch_productos['nombre']; ?></div>
       <div class="flex">
-         <div class="price"><span>€</span><?= $fetch_productos['price']; ?><span>/-</span></div>
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+         <div class="price"><span>€</span><?= $fetch_productos['precio']; ?><span>/-</span></div>
+         <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
       </div>
-      <input type="submit" value="añadir al carro" class="btn" name="add_to_cart">
+      <input type="submit" value="añadir al carro" class="btn" name="agregar_cesta">
    </form>
    <?php
       }

@@ -10,33 +10,33 @@ if(!isset($admin_id)){
    header('location:admin_login.php');
 }
 
-if(isset($_POST['enviar'])){
+if(isset($_POST['editar'])){
 
-   $name = $_POST['nombre'];
-   $name = filter_var($name, FILTER_SANITIZE_STRING);
+   $nombre = $_POST['nombre'];
+   $nombre = filter_var($nombre, FILTER_SANITIZE_STRING);
 
-   $update_profile_name = $conex->prepare("UPDATE administradores SET nombre = ? WHERE id = ?");
-   $update_profile_name->execute([$name, $admin_id]);
+   $editar_nombre = $conex->prepare("UPDATE administradores SET nombre = ? WHERE id = ?");
+   $editar_nombre->execute([$nombre, $admin_id]);
 
-   $empty_pass = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
-   $prev_pass = $_POST['prev_pass'];
-   $old_pass = sha1($_POST['old_pass']);
-   $old_pass = filter_var($old_pass, FILTER_SANITIZE_STRING);
-   $new_pass = sha1($_POST['new_pass']);
-   $new_pass = filter_var($new_pass, FILTER_SANITIZE_STRING);
+   $pass_vacio = 'da39a3ee5e6b4b0d3255bfef95601890afd80709';
+   $pass_previo = $_POST['prev_pass'];
+   $pass_antiguo = sha1($_POST['old_pass']);
+   $pass_antiguo = filter_var($pass_antiguo, FILTER_SANITIZE_STRING);
+   $pass_nuevo = sha1($_POST['new_pass']);
+   $pass_nuevo = filter_var($pass_nuevo, FILTER_SANITIZE_STRING);
    $confirm_pass = sha1($_POST['confirm_pass']);
    $confirm_pass = filter_var($confirm_pass, FILTER_SANITIZE_STRING);
 
-   if($old_pass == $empty_pass){
+   if($pass_antiguo == $pass_vacio){
       $mensaje[] = 'por favot introduzca la antigua contraseña!';
-   }elseif($old_pass != $prev_pass){
+   }elseif($pass_antiguo != $pass_previo){
       $mensaje[] = 'no coincide con la antigua contraseña!';
-   }elseif($new_pass != $confirm_pass){
+   }elseif($pass_nuevo != $confirm_pass){
       $mensaje[] = 'la confirmación de la contraseña no es correcta!';
    }else{
-      if($new_pass != $empty_pass){
-         $update_admin_pass = $conex->prepare("UPDATE administradores SET clave = ? WHERE id = ?");
-         $update_admin_pass->execute([$confirm_pass, $admin_id]);
+      if($pass_nuevo != $pass_vacio){
+         $editar_admin_pass = $conex->prepare("UPDATE administradores SET clave = ? WHERE id = ?");
+         $editar_admin_pass->execute([$confirm_pass, $admin_id]);
          $mensaje[] = 'contraseña actualizada correctamente!';
       }else{
          $mensaje[] = 'por favor introduzca una nueva contraseña!';
@@ -68,12 +68,12 @@ if(isset($_POST['enviar'])){
 
    <form action="" method="post">
       <h3>actualizar perfil</h3>
-      <input type="hidden" name="prev_pass" value="<?= $fetch_profile['clave']; ?>">
-      <input type="text" name="nombre" value="<?= $fetch_profile['nombre']; ?>" required placeholder="enter your username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
+      <input type="hidden" name="prev_pass" value="<?= $fetch_perfil['clave']; ?>">
+      <input type="text" name="nombre" value="<?= $fetch_perfil['nombre']; ?>" required placeholder="enter your username" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="old_pass" placeholder="introduzca antigua contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="new_pass" placeholder="introduzca nueva contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="confirm_pass" placeholder="confirma nueva contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
-      <input type="submit" value="editar" class="btn" name="enviar">
+      <input type="submit" value="editar" class="btn" name="editar">
    </form>
 
 </section>

@@ -22,8 +22,12 @@ if(isset($_POST['enviar'])){
    $fila = $selec_usuario->fetch(PDO::FETCH_ASSOC);
 
    if($selec_usuario->rowCount() > 0){
-      $_SESSION['user_id'] = $fila['id'];
-      header('location:index.php');
+      if($fila['estatus']==1){
+         $_SESSION['user_id'] = $fila['id'];
+         header('location:index.php');
+      }else{
+         $mensaje[] = 'Su cuenta se dio de baja ponganse en contacto con el administrador';
+      }
    }else{
       $mensaje[] = 'usuario o contraseña incorrecta!';
    }

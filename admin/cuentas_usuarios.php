@@ -11,17 +11,25 @@ if(!isset($admin_id)){
 }
 
 if(isset($_GET['borrar'])){
-   $delete_id = $_GET['borrar'];
-   $delete_user = $conex->prepare("DELETE FROM usuarios WHERE id = ?");
-   $delete_user->execute([$delete_id]);
-   $delete_orders = $conex->prepare("DELETE FROM pedidos WHERE id_usuario = ?");
-   $delete_orders->execute([$delete_id]);
-   $delete_messages = $conex->prepare("DELETE FROM mensajes WHERE id_usuario = ?");
-   $delete_messages->execute([$delete_id]);
-   $delete_cart = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
-   $delete_cart->execute([$delete_id]);
+   $borrar_id = $_GET['borrar'];
+   $borrar_usuario = $conex->prepare("DELETE FROM usuarios WHERE id = ?");
+   $borrar_usuario->execute([$borrar_id]);
+   $borrar_pedidos = $conex->prepare("DELETE FROM pedidos WHERE id_usuario = ?");
+   $borrar_pedidos->execute([$borrar_id]);
+   $borrar_mensajes = $conex->prepare("DELETE FROM mensajes WHERE id_usuario = ?");
+   $borrar_mensajes->execute([$borrar_id]);
+   $borrar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
+   $borrar_cesta->execute([$borrar_id]);
    /*$delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
-   $delete_wishlist->execute([$delete_id]);*/
+   $delete_wishlist->execute([$borrar_id]);*/
+   header('location:cuentas_usuarios.php');
+}
+
+if(isset($_GET['baja'])){
+   $baja_id = $_GET['baja'];
+   $baja=false;
+   $baja_usuario = $conex->prepare("UPDATE usuarios SET estatus = ? WHERE id = ?");
+   $baja_usuario->execute([$baja, $baja_id]);
    header('location:cuentas_usuarios.php');
 }
 
@@ -51,16 +59,16 @@ if(isset($_GET['borrar'])){
    <div class="box-container">
 
    <?php
-      $select_accounts = $conex->prepare("SELECT * FROM usuarios ");
-      $select_accounts->execute();
-      if($select_accounts->rowCount() > 0){
-         while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+      $cuentas_usuarios = $conex->prepare("SELECT * FROM usuarios ");
+      $cuentas_usuarios->execute();
+      if($cuentas_usuarios->rowCount() > 0){
+         while($fetch_cuentas_usuarios = $cuentas_usuarios->fetch(PDO::FETCH_ASSOC)){   
    ?>
    <div class="box">
-      <p> id usuario : <span><?= $fetch_accounts['id']; ?></span> </p>
-      <p> nombre usuario : <span><?= $fetch_accounts['nombre']; ?></span> </p>
-      <p> email : <span><?= $fetch_accounts['email']; ?></span> </p>
-      <a href="cuentas_usuarios.php?borrar=<?= $fetch_accounts['id']; ?>" onclick="return confirm('¿Quiere eliminar esta cuenta? la información relacionada con el usuario también se suprimirá')" class="delete-btn">eliminar</a>
+      <p> id usuario : <span><?= $fetch_cuentas_usuarios['id']; ?></span> </p>
+      <p> nombre usuario : <span><?= $fetch_cuentas_usuarios['nombre']; ?></span> </p>
+      <p> email : <span><?= $fetch_cuentas_usuarios['email']; ?></span> </p>
+      <a href="cuentas_usuarios.php?baja=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere eliminar esta cuenta? la información relacionada con el usuario también se suprimirá')" class="delete-btn">eliminar</a>
    </div>
    <?php
          }

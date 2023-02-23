@@ -11,9 +11,17 @@ if(!isset($admin_id)){
 }
 
 if(isset($_GET['borrar'])){
-   $delete_id = $_GET['borrar'];
-   $delete_admins = $conn->prepare("DELETE FROM administradores WHERE id = ?");
-   $delete_admins->execute([$delete_id]);
+   $borrar_id = $_GET['borrar'];
+   $borrar_empleados = $conex->prepare("DELETE FROM administradores WHERE id = ?");
+   $borrar_empleados->execute([$borrar_id]);
+   header('location:cuentas_empleados.php');
+}
+
+if(isset($_GET['baja'])){
+   $baja_id = $_GET['baja'];
+   $nom_prueba = 'nuevo nombre 2';
+   $baja_empleados = $conex->prepare("UPDATE administradores SET nombre = ? WHERE id = ?");
+   $baja_empleados->execute([$nom_prueba, $baja_id]);
    header('location:cuentas_empleados.php');
 }
 
@@ -44,28 +52,21 @@ if(isset($_GET['borrar'])){
 
    <div class="box">
       <p>añadir nuevo administrador</p>
-      <a href="registrar_empleado.php" class="option-btn">registrar admin</a>
+      <a href="registrar_empleado.php" class="option-btn">registrar empleado</a>
    </div>
 
    <?php
-      $select_accounts = $conex->prepare("SELECT * FROM administradores WHERE rol='editor'");
-      $select_accounts->execute();
-      if($select_accounts->rowCount() > 0){
-         while($fetch_accounts = $select_accounts->fetch(PDO::FETCH_ASSOC)){   
+      $selecc_empleados = $conex->prepare("SELECT * FROM administradores WHERE rol='editor'");
+      $selecc_empleados->execute();
+      if($selecc_empleados->rowCount() > 0){
+         while($fetch_empleados = $selecc_empleados->fetch(PDO::FETCH_ASSOC)){   
    ?>
    <div class="box">
-      <p> id empleado : <span><?= $fetch_accounts['id']; ?></span> </p>
-      <p> nombre empleado : <span><?= $fetch_accounts['nombre']; ?></span> </p>
+      <p> id empleado : <span><?= $fetch_empleados['id']; ?></span> </p>
+      <p> nombre empleado : <span><?= $fetch_empleados['nombre']; ?></span> </p>
       <div class="flex-btn">
-      <!--<a href="admin_accounts.php?delete=<?= $fetch_accounts['id']; ?>" onclick="return confirm('delete this account?')" class="delete-btn">delete</a>-->
-         <?php
-            if($fetch_accounts['id'] == $admin_id){
-               echo '<a href="editar_perfil_admin.php" class="option-btn">actualizar</a>';
-            }else{
-               echo '<a href="editar_perfil_admin.php" class="option-btn">actualizar</a>';
-               echo '<a href="cuentas_admin.php" class="delete-btn">borrar</a>';
-            }
-         ?>
+         <input type="submit" value="editar" class="option-btn" name="editar_perfil_empleado">
+         <a href="cuentas_empleados.php?baja=<?= $fetch_empleados['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar a este empleado/editor?');">borrar</a>
       </div>
    </div>
    <?php

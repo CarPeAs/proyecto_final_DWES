@@ -63,8 +63,26 @@ if(isset($_POST['añadir_articulo'])){
 
 };
 
-if(isset($_GET['borrar'])){
+/*Artículo no disponible en stock - Baja logica*/
+if(isset($_GET['baja'])){
+   $baja_id = $_GET['baja'];
+   $baja=false;
+   $baja_articulo = $conex->prepare("UPDATE articulos SET disponible = ? WHERE id = ?");
+   $baja_articulo->execute([$baja, $baja_id]);
+   header('location:catalogo_admin.php');
+}
 
+if(isset($_GET['alta'])){
+   $alta_id = $_GET['alta'];
+   $alta=true;
+   $alta_articulo = $conex->prepare("UPDATE articulos SET disponible = ? WHERE id = ?");
+   $alta_articulo->execute([$alta, $alta_id]);
+   $mensaje[]='El articulo ahora esta disponible en la web';
+   
+}
+
+/**Borrado permanente */
+if(isset($_GET['borrar'])){
    $id_articulo = $_GET['borrar'];
    $borrar_imagen_articulo = $conex->prepare("SELECT * FROM articulos WHERE id = ?");
    $borrar_imagen_articulo->execute([$id_articulo]);
@@ -76,8 +94,6 @@ if(isset($_GET['borrar'])){
    $borrar_articulo->execute([$id_articulo]);
    $borrar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_pedido = ?");
    $borrar_cesta->execute([$id_articulo]);
-   /*$delete_wishlist = $conex->prepare("DELETE FROM wishlist WHERE id_pedido = ?");
-   $delete_wishlist->execute([$id_articulo]);*/
    header('location:catalogo_admin.php');
 }
 
@@ -155,9 +171,15 @@ if(isset($_GET['borrar'])){
       <div class="name"><?= $fetch_articulos['nombre']; ?></div>
       <div class="price">€<span><?= $fetch_articulos['precio']; ?></span>/-</div>
       <div class="details"><span><?= $fetch_articulos['descripcion']; ?></span></div>
+      <div class="details"><span style="color:<?php if($fetch_articulos['disponible'] == 0){ echo 'red'; }else{ echo 'green'; }; ?>">
+         <?php if($fetch_articulos['disponible'] == 0 ){ echo 'Artículo agotado'; }else{ echo 'Artículo disponible'; }; ?></span></div>
+      
       <div class="flex-btn">
          <a href="actualizar_articulo.php?actualizar=<?= $fetch_articulos['id']; ?>" class="option-btn">editar</a>
-         <a href="catalogo_admin.php?borrar=<?= $fetch_articulos['id']; ?>" class="delete-btn" onclick="return confirm('¿Borrar este producto?');">eliminar</a>
+         <a href="catalogo_admin.php?baja=<?= $fetch_articulos['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere dar de baja este artículo?');">baja</a>
+      </div>
+      <div class="flex-btn">
+         <a href="catalogo_admin.php?alta=<?= $fetch_articulos['id']; ?>" class="btn" onclick="return confirm('¿Quiere dar de alta este artículo?');">alta</a>
       </div>
    </div>
    <?php

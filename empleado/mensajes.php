@@ -11,9 +11,17 @@ if(!isset($admin_id)){
 };
 
 if(isset($_GET['borrar'])){
-   $delete_id = $_GET['borrar'];
-   $delete_message = $conex->prepare("DELETE FROM mensajes WHERE id = ?");
-   $delete_message->execute([$delete_id]);
+   $id_borrado = $_GET['borrar'];
+   $borrar_mensaje = $conex->prepare("DELETE FROM mensajes WHERE id = ?");
+   $borrar_mensaje->execute([$id_borrado]);
+   header('location:mensajes.php');
+}
+
+if(isset($_GET['baja'])){
+   $id_borrado = $_GET['baja'];
+   $borrar=false;
+   $borrar_mensaje = $conex->prepare("UPDATE mensajes SET borrado = ? WHERE id = ?");
+   $borrar_mensaje->execute([$borrar, $id_borrado]);
    header('location:mensajes.php');
 }
 
@@ -25,7 +33,7 @@ if(isset($_GET['borrar'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>mensajes</title>
+   <title>mensajes-editor</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -43,23 +51,22 @@ if(isset($_GET['borrar'])){
 <div class="box-container">
 
    <?php
-      $select_messages = $conex->prepare("SELECT * FROM mensajes ");
-      $select_messages->execute();
-      if($select_messages->rowCount() > 0){
-         while($fetch_message = $select_messages->fetch(PDO::FETCH_ASSOC)){
+       $selecc_mensaje = $conex->prepare("SELECT * FROM mensajes WHERE borrado = 1");
+       $selecc_mensaje->execute();
+       if($selecc_mensaje->rowCount() > 0){
+          while($fetch_mensaje = $selecc_mensaje->fetch(PDO::FETCH_ASSOC)){
    ?>
    <div class="box">
-   <p> id usuario : <span><?= $fetch_message['user_id']; ?></span></p>
-   <p> nombre : <span><?= $fetch_message['nombre']; ?></span></p>
-   <p> email : <span><?= $fetch_message['email']; ?></span></p>
-   <p> numero : <span><?= $fetch_message['numero']; ?></span></p>
-   <p> mensaje : <span><?= $fetch_message['mensaje']; ?></span></p>
-   <a href="mensajes.php?borrar=<?= $fetch_message['id']; ?>" onclick="return confirm('¿Quiere borrar este mensaje?');" class="delete-btn">borrar</a>
+   <p> nombre : <span><?= $fetch_mensaje['nombre']; ?></span></p>
+   <p> email : <span><?= $fetch_mensaje['email']; ?></span></p>
+   <p> telefono : <span><?= $fetch_mensaje['numero']; ?></span></p>
+   <p> mensaje : <span><?= $fetch_mensaje['mensaje']; ?></span></p>
+   <a href="mensajes.php?baja=<?= $fetch_mensaje['id']; ?>" onclick="return confirm('¿Quiere borrar este mensaje?');" class="delete-btn">borrar</a>
    </div>
    <?php
          }
       }else{
-         echo '<p class="empty">usted no tiene mensajes</p>';
+         echo '<p class="empty">usted no tiene mensajes disponibles</p>';
       }
    ?>
 

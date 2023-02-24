@@ -101,7 +101,7 @@ if(isset($_POST['actualizar'])){
 </head>
 <body>
 
-<?php include '../views/admin/admin_header.php'; ?>
+<?php include '../views/empleado/emple_header.php'; ?>
 
 <section class="update-product">
 
@@ -143,7 +143,7 @@ if(isset($_POST['actualizar'])){
       <input type="file" name="imagen_03" accept="image/jpg, image/jpeg, image/png, image/webp" class="box">
       <div class="flex-btn">
          <input type="submit" name="actualizar" class="btn" value="editar">
-         <a href="catalogo_admin.php" class="option-btn">regresar</a>
+         <a href="catalogo_emple.php" class="option-btn">regresar</a>
       </div>
    </form>
    

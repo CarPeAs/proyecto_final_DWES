@@ -80,8 +80,7 @@ if(isset($_GET['reactivar'])){
       <p>estatus: <span style="color:<?php if($fetch_cuentas['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
       <?php if($fetch_cuentas['estatus'] == '0'){ echo 'Admin inactivo'; }else{ echo 'Admin activo'; }; ?></span> </p>
       <div class="flex-btn">
-         
-         <a href="editar_perfil_admin.php?editar=<?= $fetch_cuentas['id']; ?>">editar</a>
+         <a href="actualizar_administradores.php?actualizar=<?= $fetch_cuentas['id']; ?>" class="option-btn">editar</a>
          <a href="cuentas_admin.php?baja=<?= $fetch_cuentas['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere dar de baja a este administrador?');">baja</a>
       </div>
       <div class="flex-btn">

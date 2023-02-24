@@ -38,7 +38,7 @@ if(!isset($admin_id)){
       <div class="box">
          <h3>Bienvenido(a)</h3>
          <p><?= $fetch_profile['nombre']; ?></p>
-         <a href="editar_perfil_admin.php" class="btn">actualizar perfil</a>
+         <a href="editar_perfil_emple.php" class="btn">actualizar perfil</a>
       </div>
 
       <div class="box">

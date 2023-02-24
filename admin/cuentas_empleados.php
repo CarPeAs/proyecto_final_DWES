@@ -69,14 +69,14 @@ if(isset($_GET['reactivar'])){
       if($selecc_empleados->rowCount() > 0){
          while($fetch_empleados = $selecc_empleados->fetch(PDO::FETCH_ASSOC)){   
    ?>
-   <div class="box">
+   <div class="box" style="background-color:<?php if($fetch_empleados['estatus'] == '0'){ echo 'yellow'; }; ?>">
       <p> id empleado : <span><?= $fetch_empleados['id']; ?></span> </p>
       <p> nombre empleado : <span><?= $fetch_empleados['nombre']; ?></span> </p>
       <p> estatus: <span style="color:<?php if($fetch_empleados['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
       <?php if($fetch_empleados['estatus'] == '0'){ echo 'Empleado inactivo'; }else{ echo 'Empleado activo'; }; ?></span> </p>
       <div class="flex-btn">
-         <input type="submit" value="editar" class="option-btn" name="editar_perfil_empleado">
-         <a href="cuentas_empleados.php?baja=<?= $fetch_empleados['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar a este empleado/editor?');">borrar</a>
+         <a href="actualizar_administradores.php?actualizar=<?= $fetch_empleados['id']; ?>" class="option-btn">editar</a>
+         <a href="cuentas_empleados.php?baja=<?= $fetch_empleados['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere dar de baja a este empleado/editor?');">baja</a>
       </div>
       <div class="flex-btn">
       <a href="cuentas_empleados.php?reactivar=<?= $fetch_empleados['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>

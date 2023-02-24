@@ -20,11 +20,10 @@ if(isset($_GET['borrar'])){
    $borrar_mensajes->execute([$borrar_id]);
    $borrar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
    $borrar_cesta->execute([$borrar_id]);
-   /*$delete_wishlist = $conn->prepare("DELETE FROM `wishlist` WHERE user_id = ?");
-   $delete_wishlist->execute([$borrar_id]);*/
    header('location:cuentas_usuarios.php');
 }
 
+/*bajas lógicas*/
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
    $baja=false;
@@ -77,14 +76,20 @@ if(isset($_GET['reactivar'])){
       if($cuentas_usuarios->rowCount() > 0){
          while($fetch_cuentas_usuarios = $cuentas_usuarios->fetch(PDO::FETCH_ASSOC)){   
    ?>
-   <div class="box">
+   <div class="box" style="background-color:<?php if($fetch_cuentas_usuarios['estatus'] == '0'){ echo 'yellow'; }; ?>">
       <p> id usuario : <span><?= $fetch_cuentas_usuarios['id']; ?></span> </p>
       <p> nombre usuario : <span><?= $fetch_cuentas_usuarios['nombre']; ?></span> </p>
       <p> email : <span><?= $fetch_cuentas_usuarios['email']; ?></span> </p>
       <p>estatus: <span style="color:<?php if($fetch_cuentas_usuarios['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
       <?php if($fetch_cuentas_usuarios['estatus'] == '0'){ echo 'Usuario inactivo'; }else{ echo 'Usuario activo'; }; ?></span> </p>
-      <a href="cuentas_usuarios.php?baja=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere eliminar esta cuenta?')" class="delete-btn">eliminar</a>
-      <a href="cuentas_usuarios.php?reactivar=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>
+      <div class="flex-boton">
+         <a href="actualizar_usuario.php?actualizar=<?= $fetch_cuentas_usuarios['id']; ?>" class="option-btn">editar</a>
+         <a href="cuentas_usuarios.php?baja=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere dar de baja esta cuenta?')" class="delete-btn">baja</a>
+      </div>
+      <div class="flex-btn">
+         <a href="cuentas_usuarios.php?reactivar=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>
+      </div>
+      
    </div>
    <?php
          }

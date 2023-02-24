@@ -22,6 +22,7 @@
          <a href="../admin/catalogo_admin.php">productos</a>
          <a href="../admin/pedidos_realizados.php">pedidos</a>
          <a href="../admin/cuentas_admin.php">administradores</a>
+         <a href="../admin/cuentas_empleados.php">empleados</a>
          <a href="../admin/cuentas_usuarios.php">usuarios</a>
          <a href="../admin/mensajes.php">mensajes</a>
       </nav>

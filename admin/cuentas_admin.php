@@ -17,19 +17,25 @@ if(isset($_GET['borrar'])){
    header('location:cuentas_admin.php');
 }
 
-
-
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
-   $nom_prueba = 'nuevo nombre 3';
+   $baja = false;
    if($baja_id == $admin_id){
       $mensaje[] = 'no puede eliminar su propia cuenta';
    }else{
-      $baja_administrador = $conex->prepare("UPDATE administradores SET nombre = ? WHERE id = ?");
-      $baja_administrador->execute([$nom_prueba, $baja_id]);
+      $baja_administrador = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
+      $baja_administrador->execute([$baja, $baja_id]);
       header('location:cuentas_admin.php');
    }
    
+}
+
+if(isset($_GET['reactivar'])){
+   $alta_id = $_GET['reactivar'];
+   $alta=true;
+   $alta_administrador = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
+   $alta_administrador->execute([$alta, $alta_id]);
+   header('location:cuentas_admin.php');
 }
 
 ?>
@@ -58,12 +64,12 @@ if(isset($_GET['baja'])){
    <div class="box-container">
 
    <div class="box">
-      <p>añadir nuevo administrador</p>
+      <p>Añadir nuevo administrador</p>
       <a href="registrar_admin.php" class="option-btn">registrar admin</a>
    </div>
 
    <?php
-      $selecc_cuentas = $conex->prepare("SELECT * FROM administradores ");
+      $selecc_cuentas = $conex->prepare("SELECT * FROM administradores WHERE rol = 'admin' ");
       $selecc_cuentas->execute();
       if($selecc_cuentas->rowCount() > 0){
          while($fetch_cuentas = $selecc_cuentas->fetch(PDO::FETCH_ASSOC)){   
@@ -71,10 +77,15 @@ if(isset($_GET['baja'])){
    <div class="box">
       <p> id admin : <span><?= $fetch_cuentas['id']; ?></span> </p>
       <p> nombre admin : <span><?= $fetch_cuentas['nombre']; ?></span> </p>
+      <p>estatus: <span style="color:<?php if($fetch_cuentas['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
+      <?php if($fetch_cuentas['estatus'] == '0'){ echo 'Admin inactivo'; }else{ echo 'Admin activo'; }; ?></span> </p>
       <div class="flex-btn">
          
          <a href="editar_perfil_admin.php?editar=<?= $fetch_cuentas['id']; ?>">editar</a>
-         <a href="cuentas_admin.php?baja=<?= $fetch_cuentas['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar a este administrador?');">borrar</a>
+         <a href="cuentas_admin.php?baja=<?= $fetch_cuentas['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere dar de baja a este administrador?');">baja</a>
+      </div>
+      <div class="flex-btn">
+      <a href="cuentas_admin.php?reactivar=<?= $fetch_cuentas['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>
       </div>
    </div>
    <?php

@@ -33,6 +33,14 @@ if(isset($_GET['baja'])){
    header('location:cuentas_usuarios.php');
 }
 
+if(isset($_GET['reactivar'])){
+   $alta_id = $_GET['reactivar'];
+   $alta=true;
+   $alta_usuario = $conex->prepare("UPDATE usuarios SET estatus = ? WHERE id = ?");
+   $alta_usuario->execute([$alta, $alta_id]);
+   header('location:cuentas_usuarios.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +66,11 @@ if(isset($_GET['baja'])){
 
    <div class="box-container">
 
+   <div class="box">
+      <p>Añadir nuevo usuario</p>
+      <a href="registrar_usuario.php" class="option-btn">registrar usuario</a>
+   </div>
+
    <?php
       $cuentas_usuarios = $conex->prepare("SELECT * FROM usuarios ");
       $cuentas_usuarios->execute();
@@ -68,7 +81,10 @@ if(isset($_GET['baja'])){
       <p> id usuario : <span><?= $fetch_cuentas_usuarios['id']; ?></span> </p>
       <p> nombre usuario : <span><?= $fetch_cuentas_usuarios['nombre']; ?></span> </p>
       <p> email : <span><?= $fetch_cuentas_usuarios['email']; ?></span> </p>
-      <a href="cuentas_usuarios.php?baja=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere eliminar esta cuenta? la información relacionada con el usuario también se suprimirá')" class="delete-btn">eliminar</a>
+      <p>estatus: <span style="color:<?php if($fetch_cuentas_usuarios['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
+      <?php if($fetch_cuentas_usuarios['estatus'] == '0'){ echo 'Usuario inactivo'; }else{ echo 'Usuario activo'; }; ?></span> </p>
+      <a href="cuentas_usuarios.php?baja=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere eliminar esta cuenta?')" class="delete-btn">eliminar</a>
+      <a href="cuentas_usuarios.php?reactivar=<?= $fetch_cuentas_usuarios['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>
    </div>
    <?php
          }

@@ -95,17 +95,6 @@ if(!isset($admin_id)){
          <a href="catalogo_emple.php" class="btn">ver productos</a>
       </div>
 
-      <div class="box">
-         <?php
-            $select_users = $conex->prepare("SELECT * FROM usuarios ");
-            $select_users->execute();
-            $number_of_users = $select_users->rowCount()
-         ?>
-         <h3><?= $number_of_users; ?></h3>
-         <p>listado usuarios</p>
-         <a href="cuentas_usuarios.php" class="btn">ver usuarios</a>
-      </div>
-
 
       <div class="box">
          <?php

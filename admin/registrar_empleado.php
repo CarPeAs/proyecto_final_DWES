@@ -18,21 +18,21 @@ if(isset($_POST['enviar'])){
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = sha1($_POST['cpass']);
    $cpass = filter_var($cpass, FILTER_SANITIZE_STRING);
-   $rol = 'admin';
+   $rol = 'editor';
    $estatus = true;
 
-   $selecc_admin = $conex->prepare("SELECT * FROM administradores WHERE nombre = ?");
-   $selecc_admin->execute([$nombre]);
+   $selecc_empleado = $conex->prepare("SELECT * FROM administradores WHERE nombre = ?");
+   $selecc_empleado->execute([$nombre]);
 
-   if($selecc_admin->rowCount() > 0){
+   if($selecc_empleado->rowCount() > 0){
       $mensaje[] = 'El nombre de usuario ya existe';
    }else{
       if($pass != $cpass){
          $mensaje[] = 'Confirmar contraseña no coincide';
       }else{
-         $agregar_admin = $conex->prepare("INSERT INTO administradores (nombre, clave, rol, estatus) VALUES(?,?,?,?)");
-         $agregar_admin->execute([$nombre, $cpass, $rol, $estatus]);
-         $mensaje[] = 'Nuevo administrador registrado con éxito';
+         $agregar_empleado = $conex->prepare("INSERT INTO administradores (nombre, clave, rol, estatus) VALUES(?,?,?,?)");
+         $agregar_empleado->execute([$nombre, $cpass, $rol, $estatus]);
+         $mensaje[] = 'Nuevo empleado registrado con éxito';
       }
    }
 
@@ -46,7 +46,7 @@ if(isset($_POST['enviar'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>registrar admin</title>
+   <title>registrar empleado</title>
 
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
@@ -60,7 +60,7 @@ if(isset($_POST['enviar'])){
 <section class="form-container">
 
    <form action="" method="post">
-      <h3>alta nuevo administrador</h3>
+      <h3>alta nuevo empleado</h3>
       <input type="text" name="nombre" required placeholder="introduce nombre" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" required placeholder="introduce contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="cpass" required placeholder="confirma contraseña" maxlength="20"  class="box" oninput="this.value = this.value.replace(/\s/g, '')">

@@ -19,9 +19,17 @@ if(isset($_GET['borrar'])){
 
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
-   $nom_prueba = 'nuevo nombre 2';
-   $baja_empleados = $conex->prepare("UPDATE administradores SET nombre = ? WHERE id = ?");
-   $baja_empleados->execute([$nom_prueba, $baja_id]);
+   $baja=false;
+   $baja_empleados = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
+   $baja_empleados->execute([$baja, $baja_id]);
+   header('location:cuentas_empleados.php');
+}
+
+if(isset($_GET['reactivar'])){
+   $alta_id = $_GET['reactivar'];
+   $alta=true;
+   $alta_empleados = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
+   $alta_empleados->execute([$alta, $alta_id]);
    header('location:cuentas_empleados.php');
 }
 
@@ -51,7 +59,7 @@ if(isset($_GET['baja'])){
    <div class="box-container">
 
    <div class="box">
-      <p>añadir nuevo administrador</p>
+      <p>Añadir nuevo empleado/editor</p>
       <a href="registrar_empleado.php" class="option-btn">registrar empleado</a>
    </div>
 
@@ -64,9 +72,14 @@ if(isset($_GET['baja'])){
    <div class="box">
       <p> id empleado : <span><?= $fetch_empleados['id']; ?></span> </p>
       <p> nombre empleado : <span><?= $fetch_empleados['nombre']; ?></span> </p>
+      <p> estatus: <span style="color:<?php if($fetch_empleados['estatus'] == '0'){ echo 'red'; }else{ echo 'green'; }; ?>">
+      <?php if($fetch_empleados['estatus'] == '0'){ echo 'Empleado inactivo'; }else{ echo 'Empleado activo'; }; ?></span> </p>
       <div class="flex-btn">
          <input type="submit" value="editar" class="option-btn" name="editar_perfil_empleado">
          <a href="cuentas_empleados.php?baja=<?= $fetch_empleados['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar a este empleado/editor?');">borrar</a>
+      </div>
+      <div class="flex-btn">
+      <a href="cuentas_empleados.php?reactivar=<?= $fetch_empleados['id']; ?>" onclick="return confirm('¿Quiere reactivar esta cuenta?')" class="update-btn">reactivar</a>
       </div>
    </div>
    <?php

@@ -47,7 +47,7 @@ include 'config/conectar_bd.php';
             if($selec_usuario->rowCount() > 0){
             $fetch_profile = $selec_usuario->fetch(PDO::FETCH_ASSOC);
          ?>
-         <p><?= $fetch_profile["nombre"]; ?></p>
+         <p>Hola <?= $fetch_profile["nombre"]; ?></p>
          <a href="editar_usuario.php" class="btn">actualizar datos</a>
          <a href="usuario_logout.php" class="delete-btn" onclick="return confirm('¿Quieres salir de la web?');">salir</a> 
          <?php

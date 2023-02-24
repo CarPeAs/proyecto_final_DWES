@@ -16,16 +16,17 @@ if(isset($_POST['enviar'])){
    $fetch_admin = $selecc_admin->fetch(PDO::FETCH_ASSOC);
 
    if($selecc_admin->rowCount() >0){
-      if($fetch_admin ['rol']=='admin'){
+      if($fetch_admin ['rol']=='admin' AND $fetch_admin ['estatus']==1){
          $_SESSION['admin_id'] = $fetch_admin ['id'];
          header('location:panel_control.php');
-      }else{
+      }elseif($fetch_admin ['rol']=='editor' AND $fetch_admin ['estatus']==1){
          $_SESSION['admin_id'] = $fetch_admin ['id'];
          header('location:../empleado/panel_control_emp.php');
+      }else{
+         $mensaje[] = 'Su cuenta esta desactivada contacte al administrador';
       }
      
    }else{
-      
       $mensaje[] = 'usuario o contraseña incorrecta';
    }
 

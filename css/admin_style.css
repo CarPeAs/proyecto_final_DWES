@@ -64,7 +64,8 @@ section{
 
 .btn,
 .delete-btn,
-.option-btn{
+.option-btn,
+.update-btn {
    display: block;
    width: 100%;
    margin-top: 1rem;
@@ -79,7 +80,8 @@ section{
 
 .btn:hover,
 .delete-btn:hover,
-.option-btn:hover{
+.option-btn:hover,
+.update-btn:hover{
    background-color: var(--negro);
 }
 
@@ -94,6 +96,11 @@ section{
 .delete-btn{
    background-color: var(--rojo);
 }
+
+.update-btn{
+   background-color: var(--main-color);
+}
+
 
 .flex-btn{
    display: flex;

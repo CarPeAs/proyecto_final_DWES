@@ -11,7 +11,7 @@ if(!isset($admin_id)){
 }
 
 if(isset($_POST['actualizar_pago'])){
-   $pedido_id = $_POST['order_id'];
+   $pedido_id = $_POST['id_pedido'];
    $estatus_pago = $_POST['estatus_pago'];
    $estatus_pago  = filter_var($estatus_pago , FILTER_SANITIZE_STRING);
    $actualizar_pago = $conex->prepare("UPDATE pedidos SET estatus_pago = ? WHERE id = ?");
@@ -23,6 +23,14 @@ if(isset($_GET['borrar'])){
    $borrar_id = $_GET['borrar'];
    $borrar_pedido = $conex->prepare("DELETE FROM pedidos WHERE id = ?");
    $borrar_pedido->execute([$borrar_id ]);
+   header('location:pedidos_realizados.php');
+}
+
+if(isset($_GET['baja'])){
+   $baja= true;
+   $baja_id = $_GET['baja'];
+   $baja_pedido = $conex->prepare("UPDATE pedidos SET historial = ? WHERE id = ? ");
+   $baja_pedido->execute([$baja, $baja_id]);
    header('location:pedidos_realizados.php');
 }
 
@@ -52,29 +60,29 @@ if(isset($_GET['borrar'])){
 <div class="box-container">
 
    <?php
-      $select_orders = $conex->prepare("SELECT * FROM pedidos ");
-      $select_orders->execute();
-      if($select_orders->rowCount() > 0){
-         while($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)){
+      $selecc_pedidos = $conex->prepare("SELECT * FROM pedidos WHERE historial = 0 ");
+      $selecc_pedidos->execute();
+      if($selecc_pedidos->rowCount() > 0){
+         while($fetch_pedidos = $selecc_pedidos->fetch(PDO::FETCH_ASSOC)){
    ?>
    <div class="box">
-      <p> fecha pedido : <span><?= $fetch_orders['fecha_pedido']; ?></span> </p>
-      <p> nombre : <span><?= $fetch_orders['nombre']; ?></span> </p>
-      <p> numero : <span><?= $fetch_orders['numero']; ?></span> </p>
-      <p> dirección : <span><?= $fetch_orders['direccion']; ?></span> </p>
-      <p> total productos : <span><?= $fetch_orders['total_articulos']; ?></span> </p>
-      <p> total precio : <span>$<?= $fetch_orders['precio_total']; ?>/-</span> </p>
-      <p> metodo de pago  : <span><?= $fetch_orders['metodo_pago']; ?></span> </p>
+      <p> fecha pedido : <span><?= $fetch_pedidos['fecha_pedido']; ?></span> </p>
+      <p> nombre : <span><?= $fetch_pedidos['nombre']; ?></span> </p>
+      <p> numero : <span><?= $fetch_pedidos['numero']; ?></span> </p>
+      <p> dirección : <span><?= $fetch_pedidos['direccion']; ?></span> </p>
+      <p> total productos : <span><?= $fetch_pedidos['total_articulos']; ?></span> </p>
+      <p> total precio : <span>€<?= $fetch_pedidos['precio_total']; ?>/-</span> </p>
+      <p> metodo de pago  : <span><?= $fetch_pedidos['metodo_pago']; ?></span> </p>
       <form action="" method="post">
-         <input type="hidden" name="order_id" value="<?= $fetch_orders['id']; ?>">
-         <select name="payment_status" class="select">
-            <option selected disabled><?= $fetch_orders['estatus_pago']; ?></option>
-            <option value="pendiente">pendiente</option><!--pending-->
-            <option value="completado">completado</option><!--completed-->
+         <input type="hidden" name="id_pedido" value="<?= $fetch_pedidos['id']; ?>">
+         <select name="estatus_pago" class="select">
+            <option selected disabled><?= $fetch_pedidos['estatus_pago']; ?></option>
+            <option value="pendiente">pendiente</option>
+            <option value="completado">completado</option>
          </select>
         <div class="flex-btn">
          <input type="submit" value="editar" class="option-btn" name="actualizar_pago">
-         <a href="pedidos_realizados.php?borrar=<?= $fetch_orders['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar este pedido?');">borrar</a>
+         <a href="pedidos_realizados.php?baja=<?= $fetch_pedidos['id']; ?>" class="delete-btn" onclick="return confirm('¿Quiere borrar este pedido?');">borrar</a>
         </div>
       </form>
    </div>

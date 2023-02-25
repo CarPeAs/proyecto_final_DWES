@@ -43,98 +43,98 @@ if(!isset($admin_id)){
 
       <div class="box">
          <?php
-            $total_pendings = 0;
-            $select_pendings = $conex->prepare("SELECT * FROM pedidos WHERE estatus_pago = ?");
-            $select_pendings->execute(['pendiente']);
-            if($select_pendings->rowCount() > 0){
-               while($fetch_pendings = $select_pendings->fetch(PDO::FETCH_ASSOC)){
-                  $total_pendings += $fetch_pendings['precio_total'];
+            $total_pendientes = 0;
+            $selecc_pendientes = $conex->prepare("SELECT * FROM pedidos WHERE estatus_pago = ?");
+            $selecc_pendientes->execute(['pendiente']);
+            if($selecc_pendientes->rowCount() > 0){
+               while($fetch_pendientes = $selecc_pendientes->fetch(PDO::FETCH_ASSOC)){
+                  $total_pendientes += $fetch_pendientes['precio_total'];
                }
             }
          ?>
-         <h3><span>€</span><?= $total_pendings; ?><span>/-</span></h3>
+         <h3><span>€</span><?= $total_pendientes; ?><span>/-</span></h3>
          <p>total pendientes</p>
          <a href="pedidos_realizados.php" class="btn">ver pedidos</a>
       </div>
 
       <div class="box">
          <?php
-            $total_completes = 0;
-            $select_completes = $conex->prepare("SELECT * FROM pedidos WHERE estatus_pago = ?");
-            $select_completes->execute(['completado']);
-            if($select_completes->rowCount() > 0){
-               while($fetch_completes = $select_completes->fetch(PDO::FETCH_ASSOC)){
-                  $total_completes += $fetch_completes['precio_total'];
+            $total_completados = 0;
+            $selecc_completados = $conex->prepare("SELECT * FROM pedidos WHERE estatus_pago = ? ");
+            $selecc_completados->execute(['completado']);
+            if($selecc_completados->rowCount() > 0){
+               while($fetch_completado = $selecc_completados->fetch(PDO::FETCH_ASSOC)){
+                  $total_completados += $fetch_completado['precio_total'];
                }
             }
          ?>
-         <h3><span>€</span><?= $total_completes; ?><span>/-</span></h3>
+         <h3><span>€</span><?= $total_completados; ?><span>/-</span></h3>
          <p>pedidos finalizados</p>
          <a href="pedidos_realizados.php" class="btn">ver pedidos</a>
       </div>
 
       <div class="box">
          <?php
-            $select_orders = $conex->prepare("SELECT * FROM pedidos ");
-            $select_orders->execute();
-            $number_of_orders = $select_orders->rowCount()
+            $selecc_pedidos = $conex->prepare("SELECT * FROM pedidos ");
+            $selecc_pedidos->execute();
+            $numero_pedidos = $selecc_pedidos->rowCount()
          ?>
-         <h3><?= $number_of_orders; ?></h3>
-         <p>pedidos realizados</p>
+         <h3><?= $numero_pedidos; ?></h3>
+         <p>pedidos totales realizados</p>
          <a href="pedidos_realizados.php" class="btn">ver pedidos</a>
       </div>
 
       <div class="box">
          <?php
-            $select_products = $conex->prepare("SELECT * FROM articulos ");
-            $select_products->execute();
-            $number_of_products = $select_products->rowCount()
+            $selecc_articulos = $conex->prepare("SELECT * FROM articulos ");
+            $selecc_articulos->execute();
+            $numero_articulos = $selecc_articulos->rowCount()
          ?>
-         <h3><?= $number_of_products; ?></h3>
+         <h3><?= $numero_articulos; ?></h3>
          <p>productos añadidos</p>
          <a href="catalogo_admin.php" class="btn">ver productos</a>
       </div>
 
       <div class="box">
          <?php
-            $select_users = $conex->prepare("SELECT * FROM usuarios ");
-            $select_users->execute();
-            $number_of_users = $select_users->rowCount()
+            $selecc_usuarios = $conex->prepare("SELECT * FROM usuarios ");
+            $selecc_usuarios->execute();
+            $numero_usuarios = $selecc_usuarios->rowCount()
          ?>
-         <h3><?= $number_of_users; ?></h3>
+         <h3><?= $numero_usuarios; ?></h3>
          <p>listado usuarios</p>
          <a href="cuentas_usuarios.php" class="btn">ver usuarios</a>
       </div>
 
       <div class="box">
          <?php
-            $select_admins = $conex->prepare("SELECT * FROM administradores WHERE rol='admin'");
-            $select_admins->execute();
-            $number_of_admins = $select_admins->rowCount()
+            $selecc_admins = $conex->prepare("SELECT * FROM administradores WHERE rol='admin'");
+            $selecc_admins->execute();
+            $numero_admins = $selecc_admins->rowCount()
          ?>
-         <h3><?= $number_of_admins; ?></h3>
+         <h3><?= $numero_admins; ?></h3>
          <p>listado administradores</p>
          <a href="cuentas_admin.php" class="btn">ver administradores</a>
       </div>
 
       <div class="box">
          <?php
-            $select_messages = $conex->prepare("SELECT * FROM mensajes ");
-            $select_messages->execute();
-            $number_of_messages = $select_messages->rowCount()
+            $selecc_mensajes = $conex->prepare("SELECT * FROM mensajes ");
+            $selecc_mensajes->execute();
+            $numero_mensajes = $selecc_mensajes->rowCount()
          ?>
-         <h3><?= $number_of_messages; ?></h3>
+         <h3><?= $numero_mensajes; ?></h3>
          <p>nuevos mensajes</p>
          <a href="mensajes.php" class="btn">ver mensajes</a>
       </div>
 
       <div class="box">
          <?php
-            $select_admins = $conex->prepare("SELECT * FROM administradores WHERE rol='editor'");
-            $select_admins->execute();
-            $number_of_admins = $select_admins->rowCount()
+            $selecc_empleados = $conex->prepare("SELECT * FROM administradores WHERE rol='editor'");
+            $selecc_empleados->execute();
+            $numero_empleados = $selecc_empleados->rowCount()
          ?>
-         <h3><?= $number_of_admins; ?></h3>
+         <h3><?= $numero_empleados; ?></h3>
          <p>listado empleados</p>
          <a href="cuentas_empleados.php" class="btn">ver empleados</a>
       </div>

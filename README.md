@@ -9,13 +9,13 @@ Diseño de una aplicación web de tienda virtual programada en lenguaje PHP y My
 ### Organización de la página:
 En la página principal, aparecé una cabecera con logotipo o imagen de la empresa, y debajo un menú con los apartados Inicio, Conocenos(quienes somos), Catalogo, Pedidos y contacto.
 
-En la zona central de la para navegar por las distintas categorías y subcategorías, en la que si pinchamos sobre ellas se mostrarán los artículos incluidos en estas.
+En la zona central de la web para navegar por las distintas categorías, en la que si pinchamos sobre ellas se mostrarán los artículos incluidos en estas.
 
-En la zona de la derecha, un formulario para loguearse, o registrarse.
+En la zona superior de la derecha un enlace que nos remite a un formulario para loguearse, o registrarse.
 
-Un pie de página **(Footer)** con las opciones comunes de información sobre la tienda, negocio, etc.
+Un pie de página **(Footer)** con las opciones comunes de información sobre la tienda, negocio, textos legales, etc.
 
-La cabecera **(Header)**  y el pie de página **(Footer)** se ven en todo momento se ven en todo momento durante la navegación y lo que cambia es nuestro “centro” de la página.
+La cabecera **(Header)**  y el pie de página **(Footer)** se ven en todo momento se ven en todo momento durante la navegación mediante *includes* y lo que cambia es nuestro “centro” de la página.
 
 Opciones que aparecen en el menú:
 - Inicio
@@ -55,3 +55,15 @@ Editor o empleado con acceso a mantenimiento (altas, bajas y modificaciones) de 
 
 ### Administrador 
 Superusuario, que podrá hacer todo lo que puede hacer el usuario editor, más el mantenimiento de empleados y otros administradores.
+
+## Bajas lógicas
+Cuando damos de baja a los usuarios, editores, administradores o articulos, utilizamos una baja logica, es decir en vez de realizar un DELETE se realiza un UPDATE agregando en las determinadas tablas una variables booleana la cual activaremos o desactivaremos a conveniencia para poder visualizar los datos nuevamente.
+
+## Busqueda de artículos
+Opcion de búsqueda de artículos para usuarios a través del cuadro de búsqueda que se encuentra en la parte superior derecha de la pantalla.
+
+## Artículos
+Navegación por las distintas categorías, visualizándose los artículos de la categoría seleccionada en el centro de la página, incluyendo por cada artículo: imagen, nombre, descripción y precio al menos, así como la opción de añadir a la cesta y cantidad.
+
+## Cesta
+La cesta muestra el número de artículos e importe total del carrito y, si pinchamos en él, podemos editarlo, modificarlo, vaciarlo por completo o finalizar compra.

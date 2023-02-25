@@ -10,7 +10,7 @@ if(isset($_SESSION['user_id'])){
    $id_usuario = '';
 };
 
-
+include 'modelo_cesta.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +33,8 @@ if(isset($_SESSION['user_id'])){
 
 <section class="search-form">
    <form action="" method="post">
-      <input type="text" name="search_box" placeholder="buscar aquí..." maxlength="100" class="box" required>
-      <button type="submit" class="fas fa-search" name="search_btn"></button>
+      <input type="text" name="busqueda" placeholder="buscar aquí..." maxlength="100" class="box" required>
+      <button type="submit" class="fas fa-search" name="btn_busqueda"></button>
    </form>
 </section>
 
@@ -43,27 +43,27 @@ if(isset($_SESSION['user_id'])){
    <div class="box-container">
 
    <?php
-     if(isset($_POST['search_box']) OR isset($_POST['search_btn'])){
-     $search_box = $_POST['search_box'];
-     $selecc_productos = $conex->prepare("SELECT * FROM articulos WHERE nombre LIKE '%{$search_box}%'"); 
+     if(isset($_POST['busqueda']) OR isset($_POST['btn_busqueda'])){
+     $busqueda = $_POST['busqueda'];
+     $selecc_productos = $conex->prepare("SELECT * FROM articulos WHERE nombre LIKE '%{$busqueda}%'AND disponible = 1"); 
      $selecc_productos->execute();
      if($selecc_productos->rowCount() > 0){
       while($fetch_productos = $selecc_productos->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_productos['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_productos['nombre']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_productos['precio']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_productos['imagen_01']; ?>">
-      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_productos['id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_productos['imagen_01']; ?>" alt="">
+      <input type="hidden" name="id_producto" value="<?= $fetch_productos['id']; ?>">
+      <input type="hidden" name="nombre" value="<?= $fetch_productos['nombre']; ?>">
+      <input type="hidden" name="precio" value="<?= $fetch_productos['precio']; ?>">
+      <input type="hidden" name="imagen" value="<?= $fetch_productos['imagen_01']; ?>">
+      
+      
+      <img src="img_catalogo/<?= $fetch_productos['imagen_01']; ?>" alt="">
       <div class="name"><?= $fetch_productos['nombre']; ?></div>
       <div class="flex">
          <div class="price"><span>€</span><?= $fetch_productos['precio']; ?><span>/-</span></div>
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
+         <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
       </div>
-      <input type="submit" value="añadir al carro" class="btn" name="add_to_cart">
+      <input type="submit" value="añadir a la cesta" class="btn" name="agregar_cesta">
    </form>
    <?php
          }

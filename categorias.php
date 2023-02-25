@@ -4,13 +4,13 @@ include 'config/conectar_bd.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $id_usuario = $_SESSION['user_id'];
+if(isset($_SESSION['id_usuario'])){
+   $id_usuario = $_SESSION['id_usuario'];
 }else{
    $id_usuario = '';
 };
 
-
+include 'modelo_cesta.php';
 
 ?>
 
@@ -39,25 +39,25 @@ if(isset($_SESSION['user_id'])){
 
    <?php
      $categoria = $_GET['categoria'];
-     $selecc_articulo = $conex->prepare("SELECT * FROM articulos WHERE nombre LIKE '%{$categoria}%'"); 
+     $selecc_articulo = $conex->prepare("SELECT * FROM articulos WHERE nombre LIKE '%{$categoria}%' AND disponible = 1 "); 
      $selecc_articulo->execute();
      if($selecc_articulo->rowCount() > 0){
       while($fetch_articulo = $selecc_articulo->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_articulo['id']; ?>">
+      <input type="hidden" name="id_producto" value="<?= $fetch_articulo['id']; ?>">
       <input type="hidden" name="nombre" value="<?= $fetch_articulo['nombre']; ?>">
       <input type="hidden" name="precio" value="<?= $fetch_articulo['precio']; ?>">
       <input type="hidden" name="imagen" value="<?= $fetch_articulo['imagen_01']; ?>">
-      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_articulo['id']; ?>" class="fas fa-eye"></a>
+      
+
       <img src="img_catalogo/<?= $fetch_articulo['imagen_01']; ?>" alt="">
       <div class="name"><?= $fetch_articulo['nombre']; ?></div>
       <div class="flex">
          <div class="price"><span>€</span><?= $fetch_articulo['precio']; ?><span>/-</span></div>
          <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
       </div>
-      <input type="submit" value="añadir a la cesta" class="btn" name="add_to_cart">
+      <input type="submit" value="añadir a la cesta" class="btn" name="agregar_cesta">
    </form>
    <?php
       }

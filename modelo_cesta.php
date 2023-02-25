@@ -20,14 +20,15 @@ if(isset($_POST['agregar_cesta'])){
       $numero_articulos_cesta = $conex->prepare("SELECT * FROM cesta WHERE nombre = ? AND id_usuario = ?");
       $numero_articulos_cesta->execute([$nombre, $id_usuario]);
 
+      
+
       if($numero_articulos_cesta->rowCount() > 0){
          $mensaje[] = 'ya añadido a la cesta';
       }else{
-
-        
-         $agregar_cesta = $conex->prepare("INSERT INTO cesta (id_usuario, id_producto, nombre, precio, cantidad, imagen) VALUES(?,?,?,?,?,?)");
-         $agregar_cesta->execute([$id_usuario, $pid, $nombre, $precio, $cantidad, $imagen]);
+         $agregar_cesta = $conex->prepare("INSERT INTO cesta (nombre, imagen, precio, cantidad, id_usuario, id_producto ) VALUES(?,?,?,?,?,?)");
+         $agregar_cesta->execute([$nombre, $imagen, $precio, $cantidad,$id_usuario, $pid ]);
          $mensaje[] = 'añadido a la cesta';
+         
          
       }
 

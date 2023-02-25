@@ -4,32 +4,32 @@ include 'config/conectar_bd.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $id_usuario = $_SESSION['user_id'];
+if(isset($_SESSION['id_usuario'])){
+   $id_usuario = $_SESSION['id_usuario'];
 }else{
    $id_usuario = '';
    header('location:usuario_login.php');
 };
 
 if(isset($_POST['borrar'])){
-   $cart_id = $_POST['cart_id'];
-   $delete_cart_item = $conex->prepare("DELETE FROM cesta WHERE id = ?");
-   $delete_cart_item->execute([$cart_id]);
+   $id_cesta = $_POST['id_cesta'];
+   $borrar_de_cesta = $conex->prepare("DELETE FROM cesta WHERE id = ?");
+   $borrar_de_cesta->execute([$id_cesta]);
 }
 
 if(isset($_GET['borrar_todo'])){
-   $delete_cart_item = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
-   $delete_cart_item->execute([$id_usuario]);
-   header('location:cart.php');
+   $borrar_de_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
+   $borrar_de_cesta->execute([$id_usuario]);
+   header('location:cesta.php');
 }
 
 if(isset($_POST['actualizar_cantidad'])){
-   $cart_id = $_POST['cart_id'];
-   $qty = $_POST['cantidad'];
-   $qty = filter_var($qty, FILTER_SANITIZE_STRING);
-   $update_qty = $conex->prepare("UPDATE cesta SET cantidad = ? WHERE id = ?");
-   $update_qty->execute([$qty, $cart_id]);
-   $message[] = 'cantidad del carrito actualizada';
+   $id_cesta = $_POST['id_cesta'];
+   $cantidad = $_POST['cantidad'];
+   $cantidad = filter_var($cantidad, FILTER_SANITIZE_STRING);
+   $editar_cantidad = $conex->prepare("UPDATE cesta SET cantidad = ? WHERE id = ?");
+   $editar_cantidad->execute([$cantidad, $id_cesta]);
+   $mensaje[] = 'cantidad de la cesta actualizada';
 }
 
 ?>
@@ -52,32 +52,32 @@ if(isset($_POST['actualizar_cantidad'])){
 
 <section class="products shopping-cart">
 
-   <h3 class="heading">carro de la compra</h3>
+   <h3 class="heading">cesta de la compra</h3>
 
    <div class="box-container">
 
    <?php
-      $grand_total = 0;
-      $select_cart = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
-      $select_cart->execute([$id_usuario]);
-      if($select_cart->rowCount() > 0){
-         while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
+      $total_compra = 0;
+      $selecc_cesta = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
+      $selecc_cesta->execute([$id_usuario]);
+      if($selecc_cesta->rowCount() > 0){
+         while($fetch_cesta = $selecc_cesta->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="cart_id" value="<?= $fetch_cart['id']; ?>">
-      <a href="quick_view.php?pid=<?= $fetch_cart['id_pedido']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_cart['imagen']; ?>" alt="">
-      <div class="name"><?= $fetch_cart['nombre']; ?></div>
+      <input type="hidden" name="id_cesta" value="<?= $fetch_cesta['id']; ?>">
+      
+      <img src="img_catalogo/<?= $fetch_cesta['imagen']; ?>" alt="">
+      <div class="name"><?= $fetch_cesta['nombre']; ?></div>
       <div class="flex">
-         <div class="price">€<?= $fetch_cart['precio']; ?>/-</div>
-         <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cart['cantidad']; ?>">
+         <div class="price">€<?= $fetch_cesta['precio']; ?>/-</div>
+         <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="<?= $fetch_cesta['cantidad']; ?>">
          <button type="submit" class="fas fa-edit" name="actualizar_cantidad"></button>
       </div>
-      <div class="sub-total"> Sub total : <span>€<?= $sub_total = ($fetch_cart['precio'] * $fetch_cart['cantidad']); ?>/-</span> </div>
+      <div class="sub-total"> Sub total : <span>€<?= $sub_total = ($fetch_cesta['precio'] * $fetch_cesta['cantidad']); ?>/-</span> </div>
       <input type="submit" value="eliminar producto" onclick="return confirm('¿Quieres eliminar este producto de la cesta?');" class="delete-btn" name="borrar">
    </form>
    <?php
-   $grand_total += $sub_total;
+   $total_compra += $sub_total;
       }
    }else{
       echo '<p class="empty">tu carro esta vacio</p>';
@@ -86,10 +86,10 @@ if(isset($_POST['actualizar_cantidad'])){
    </div>
 
    <div class="cart-total">
-      <p>total : <span>€<?= $grand_total; ?>/-</span></p>
+      <p>Total : <span>€<?= $total_compra; ?>/-</span></p>
       <a href="catalogo.php" class="option-btn">continuar comprando</a>
-      <a href="cesta.php?borrar_todo" class="delete-btn <?= ($grand_total > 1)?'':'disabled'; ?>" onclick="return confirm('¿Quiere eliminar todos los articulos de la cesta?');">borrar todos los artículos</a>
-      <a href="checkout.php" class="btn <?= ($grand_total > 1)?'':'disabled'; ?>">proceder a la compra</a>
+      <a href="cesta.php?borrar_todo" class="delete-btn <?= ($total_compra > 1)?'':'disabled'; ?>" onclick="return confirm('¿Quiere eliminar todos los articulos de la cesta?');">borrar todos los artículos</a>
+      <a href="confirmar_compra.php" class="btn <?= ($total_compra > 1)?'':'disabled'; ?>">proceder a la compra</a>
    </div>
 
 </section>

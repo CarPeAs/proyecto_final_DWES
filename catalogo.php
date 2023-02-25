@@ -4,13 +4,13 @@ include 'config/conectar_bd.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-   $id_usuario = $_SESSION['user_id'];
+if(isset($_SESSION['id_usuario'])){
+   $id_usuario = $_SESSION['id_usuario'];
 }else{
    $id_usuario = '';
 };
 
-
+include 'modelo_cesta.php';
 
 ?>
 
@@ -38,25 +38,25 @@ if(isset($_SESSION['user_id'])){
    <div class="box-container">
 
    <?php
-     $selecc_productos = $conex->prepare("SELECT * FROM articulos"); 
+     $selecc_productos = $conex->prepare("SELECT * FROM articulos WHERE disponible = 1"); 
      $selecc_productos->execute();
      if($selecc_productos->rowCount() > 0){
       while($fetch_productos = $selecc_productos->fetch(PDO::FETCH_ASSOC)){
    ?>
    <form action="" method="post" class="box">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="nombre" value="<?= $fetch_product['nombre']; ?>">
-      <input type="hidden" name="precio" value="<?= $fetch_product['precio']; ?>">
-      <input type="hidden" name="imagen" value="<?= $fetch_product['imagen_01']; ?>">
-      <!--wish-->
-      <a href="quick_view.php?pid=<?= $fetch_productos['id']; ?>" class="fas fa-eye"></a>
+      <input type="hidden" name="id_producto" value="<?= $fetch_productos['id']; ?>">
+      <input type="hidden" name="nombre" value="<?= $fetch_productos['nombre']; ?>">
+      <input type="hidden" name="precio" value="<?= $fetch_productos['precio']; ?>">
+      <input type="hidden" name="imagen" value="<?= $fetch_productos['imagen_01']; ?>">
+      
+
       <img src="img_catalogo/<?= $fetch_productos['imagen_01']; ?>" alt="">
       <div class="name"><?= $fetch_productos['nombre']; ?></div>
       <div class="flex">
          <div class="price"><span>€</span><?= $fetch_productos['precio']; ?><span>/-</span></div>
          <input type="number" name="cantidad" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
       </div>
-      <input type="submit" value="añadir al carro" class="btn" name="agregar_cesta">
+      <input type="submit" value="añadir a la cesta" class="btn" name="agregar_cesta">
    </form>
    <?php
       }

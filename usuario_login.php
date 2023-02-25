@@ -4,8 +4,8 @@ include 'config/conectar_bd.php';
 
 session_start();
 
-if(isset($_SESSION['user_id'])){
-    $id_usuario = $_SESSION['user_id'];
+if(isset($_SESSION['id_usuario'])){
+    $id_usuario = $_SESSION['id_usuario'];
 }else{
     $id_usuario = '';
 };
@@ -23,7 +23,7 @@ if(isset($_POST['enviar'])){
 
    if($selec_usuario->rowCount() > 0){
       if($fila['estatus']==1){
-         $_SESSION['user_id'] = $fila['id'];
+         $_SESSION['id_usuario'] = $fila['id'];
          header('location:index.php');
       }else{
          $mensaje[] = 'Su cuenta se dio de baja ponganse en contacto con el administrador';

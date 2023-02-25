@@ -40,10 +40,7 @@
          ?>
          <p><?= $fetch_perfil['nombre']; ?></p>
          <a href="../admin/editar_perfil_admin.php" class="btn">editar perfil</a>
-         <div class="flex-btn">
-            <!--<a href="../admin/register_admin.php" class="option-btn">registrar</a>
-            <a href="../admin/admin_login.php" class="option-btn">acceder</a>-->
-         </div>
+         <div class="flex-btn"></div>
          <a href="../views/admin/admin_logout.php" class="delete-btn" onclick="return confirm('¿Quiere salir de la web?');">salir</a> 
       </div>
 

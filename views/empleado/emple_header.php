@@ -37,10 +37,7 @@
          ?>
          <p><?= $fetch_profile['nombre']; ?></p>
          <a href="../empleado/editar_perfil_emple.php" class="btn">editar perfil</a>
-         <div class="flex-btn">
-            <!--<a href="../admin/register_admin.php" class="option-btn">registrar</a>
-            <a href="../admin/admin_login.php" class="option-btn">acceder</a>-->
-         </div>
+         <div class="flex-btn"></div>
          <a href="../views/empleado/emple_logout.php" class="delete-btn" onclick="return confirm('¿Quiere salir de la web?');">salir</a> 
       </div>
 

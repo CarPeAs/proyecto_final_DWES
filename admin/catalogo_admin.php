@@ -66,7 +66,7 @@ if(isset($_POST['añadir_articulo'])){
 /*Artículo no disponible en stock - Baja logica*/
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
-   $baja=false;
+   $baja= 0;
    $baja_articulo = $conex->prepare("UPDATE articulos SET disponible = ? WHERE id = ?");
    $baja_articulo->execute([$baja, $baja_id]);
    header('location:catalogo_admin.php');
@@ -74,7 +74,7 @@ if(isset($_GET['baja'])){
 
 if(isset($_GET['alta'])){
    $alta_id = $_GET['alta'];
-   $alta=true;
+   $alta= 1;
    $alta_articulo = $conex->prepare("UPDATE articulos SET disponible = ? WHERE id = ?");
    $alta_articulo->execute([$alta, $alta_id]);
    $mensaje[]='El articulo ahora esta disponible en la web';

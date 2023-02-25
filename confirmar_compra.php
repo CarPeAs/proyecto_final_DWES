@@ -38,6 +38,7 @@ if(isset($_POST['pedido'])){
       $vaciar_cesta->execute([$id_usuario]);
 
       $mensaje[] = 'pedido realizado con éxito!';
+      header('refresh:2;location:index.php');
    }else{
       $mensaje[] = 'tu carro esta vacio';
    }

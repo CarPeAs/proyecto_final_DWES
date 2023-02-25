@@ -19,7 +19,7 @@ if(isset($_GET['borrar'])){
 
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
-   $baja=false;
+   $baja=0;
    $baja_empleados = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
    $baja_empleados->execute([$baja, $baja_id]);
    header('location:cuentas_empleados.php');
@@ -27,7 +27,7 @@ if(isset($_GET['baja'])){
 
 if(isset($_GET['reactivar'])){
    $alta_id = $_GET['reactivar'];
-   $alta=true;
+   $alta=1;
    $alta_empleados = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
    $alta_empleados->execute([$alta, $alta_id]);
    header('location:cuentas_empleados.php');

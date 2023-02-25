@@ -19,7 +19,7 @@ if(isset($_GET['borrar'])){
 
 if(isset($_GET['baja'])){
    $baja_id = $_GET['baja'];
-   $baja = false;
+   $baja = 0;
    if($baja_id == $admin_id){
       $mensaje[] = 'no puede eliminar su propia cuenta';
    }else{
@@ -32,7 +32,7 @@ if(isset($_GET['baja'])){
 
 if(isset($_GET['reactivar'])){
    $alta_id = $_GET['reactivar'];
-   $alta=true;
+   $alta= 1;
    $alta_administrador = $conex->prepare("UPDATE administradores SET estatus = ? WHERE id = ?");
    $alta_administrador->execute([$alta, $alta_id]);
    header('location:cuentas_admin.php');

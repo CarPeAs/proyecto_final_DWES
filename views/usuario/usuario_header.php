@@ -1,5 +1,5 @@
 <?php
-include 'config/conectar_bd.php';
+
 
 
    if(isset($mensaje)){

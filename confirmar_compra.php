@@ -21,18 +21,18 @@ if(isset($_POST['pedido'])){
    $email = filter_var($email, FILTER_SANITIZE_STRING);
    $metodo_pago = $_POST['metodo_pago'];
    $metodo_pago = filter_var($metodo_pago, FILTER_SANITIZE_STRING);
-   $domicilio =  $_POST['flat'] .', '. $_POST['calle'] .', '. $_POST['ciudad'] .', '. $_POST['provincia'] .', '. $_POST['pais'] .' - '. $_POST['cd_postal'];
+   $domicilio =  $_POST['piso'] .', '. $_POST['calle'] .', '. $_POST['ciudad'] .', '. $_POST['provincia'] .', '. $_POST['pais'] .' - '. $_POST['cd_postal'];
    $domicilio = filter_var($domicilio, FILTER_SANITIZE_STRING);
    $total_productos = $_POST['total_productos'];
    $total_precio = $_POST['total_precio'];
-/**'flat no. '. */
+
    $articulos_cesta = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
    $articulos_cesta->execute([$id_usuario]);
 
    if($articulos_cesta->rowCount() > 0){
 
       $realizar_pedido = $conex->prepare("INSERT INTO pedidos (nombre, direccion, email, metodo_pago, numero, precio_total,  total_articulos, id_usuario ) VALUES(?,?,?,?,?,?,?,?)");
-      $realizar_pedido->execute([$nombre, $domicilio, $email, $metodo_pago, $telefono, $total_productos, $total_precio, $id_usuario]);
+      $realizar_pedido->execute([$nombre, $domicilio, $email, $metodo_pago, $telefono, $total_precio, $total_productos, $id_usuario]);
 
       $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
       $vaciar_cesta->execute([$id_usuario]);
@@ -72,13 +72,13 @@ if(isset($_POST['pedido'])){
       <div class="display-orders">
       <?php
          $total = 0;
-         $articulos_cesta[] = '';
+         $articulos_cesta = '';
          $selecc_cesta = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
          $selecc_cesta->execute([$id_usuario]);
          if($selecc_cesta->rowCount() > 0){
             while($fetch_cesta = $selecc_cesta->fetch(PDO::FETCH_ASSOC)){
-               $articulos_cesta[] = $fetch_cesta['nombre'].' ('.$fetch_cesta['precio'].' x '. $fetch_cesta['cantidad'].') - ';
-               $total_articulos = implode($articulos_cesta);/**para convertir el array en una cadena de texto*/
+               $articulos_cesta = $fetch_cesta['nombre'].' ('.$fetch_cesta['precio'].' x '. $fetch_cesta['cantidad'].') - ';
+               $total_articulos = $articulos_cesta;
                $total += ($fetch_cesta['precio'] * $fetch_cesta['cantidad']);
       ?>
          <p> <?= $fetch_cesta['nombre']; ?> <span>(<?= '€'.$fetch_cesta['precio'].'/- x '. $fetch_cesta['cantidad']; ?>)</span> </p>
@@ -118,7 +118,7 @@ if(isset($_POST['pedido'])){
          </div>
          <div class="inputBox">
             <span>dirección línea 01 :</span>
-            <input type="text" name="flat" placeholder="e.g. planta baja" class="box" maxlength="50" required>
+            <input type="text" name="piso" placeholder="e.g. planta baja" class="box" maxlength="50" required>
          </div>
          <div class="inputBox">
             <span>dirección línea 02 :</span>

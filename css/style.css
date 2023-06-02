@@ -283,6 +283,10 @@ section{
    background-color: var(--main-color);
 }
 
+.swiper-button-next .swiper-button-prev{
+   background-color: var(--main-color);
+}
+
 .category .slide{
    margin-bottom: 5rem;
    box-shadow: var(--box-shadow);

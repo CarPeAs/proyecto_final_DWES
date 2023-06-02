@@ -76,6 +76,9 @@ include 'modelo_cesta.php';
    </div>
 
       <div class="swiper-pagination"></div>
+      <!-- Flechas laterlas desplazamiento -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
 
    </div>
 
@@ -134,6 +137,9 @@ include 'modelo_cesta.php';
    </div>
 
    <div class="swiper-pagination"></div>
+   <!-- Flechas laterlas desplazamiento -->
+   <div class="swiper-button-next"></div>
+   <div class="swiper-button-prev"></div>
 
    </div>
 
@@ -178,7 +184,9 @@ include 'modelo_cesta.php';
    </div>
 
    <div class="swiper-pagination"></div>
-
+   <!-- Flechas laterlas desplazamiento -->
+   <div class="swiper-button-next"></div>
+   <div class="swiper-button-prev"></div>
    </div>
 
 </section>
@@ -190,27 +198,34 @@ include 'modelo_cesta.php';
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 <script>
-
-var swiper = new Swiper(".home-slider", {
-   loop:true,
-   spaceBetween: 20,
-   pagination: {
+  var homeSwiper = new Swiper(".home-slider", {
+    loop: true,
+    spaceBetween: 20,
+    pagination: {
       el: ".swiper-pagination",
-      clickable:true,
+      clickable: true,
     },
-});
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
 
-var swiper = new Swiper(".category-slider", {
-   loop:true,
-   spaceBetween: 20,
-   pagination: {
+  var categorySwiper = new Swiper(".category-slider", {
+    loop: true,
+    spaceBetween: 20,
+    pagination: {
       el: ".swiper-pagination",
-      clickable:true,
-   },
-   breakpoints: {
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
       0: {
-         slidesPerView: 2,
-       },
+        slidesPerView: 2,
+      },
       650: {
         slidesPerView: 3,
       },
@@ -220,17 +235,21 @@ var swiper = new Swiper(".category-slider", {
       1024: {
         slidesPerView: 5,
       },
-   },
-});
+    },
+  });
 
-var swiper = new Swiper(".products-slider", {
-   loop:true,
-   spaceBetween: 20,
-   pagination: {
+  var productsSwiper = new Swiper(".products-slider", {
+    loop: true,
+    spaceBetween: 20,
+    pagination: {
       el: ".swiper-pagination",
-      clickable:true,
-   },
-   breakpoints: {
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
       550: {
         slidesPerView: 2,
       },
@@ -240,8 +259,6 @@ var swiper = new Swiper(".products-slider", {
       1024: {
         slidesPerView: 3,
       },
-   },
-});
-
-
+    },
+  });
 </script>

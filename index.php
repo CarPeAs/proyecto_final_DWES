@@ -75,7 +75,7 @@ include 'modelo_cesta.php';
 
    </div>
 
-      <div class="swiper-pagination"></div>
+      <!-- <div class="swiper-pagination"></div> -->
       <!-- Flechas laterlas desplazamiento -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
@@ -136,7 +136,7 @@ include 'modelo_cesta.php';
 
    </div>
 
-   <div class="swiper-pagination"></div>
+   <!-- <div class="swiper-pagination"></div> -->
    <!-- Flechas laterlas desplazamiento -->
    <div class="swiper-button-next"></div>
    <div class="swiper-button-prev"></div>
@@ -183,7 +183,7 @@ include 'modelo_cesta.php';
 
    </div>
 
-   <div class="swiper-pagination"></div>
+   <!-- <div class="swiper-pagination"></div> -->
    <!-- Flechas laterlas desplazamiento -->
    <div class="swiper-button-next"></div>
    <div class="swiper-button-prev"></div>
@@ -196,8 +196,10 @@ include 'modelo_cesta.php';
 <script src="js/script.js"></script>
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<!-- Libreria SWIPER para la paginación -->
 
 <script>
+   //  Inicializar Swiper
   var homeSwiper = new Swiper(".home-slider", {
     loop: true,
     spaceBetween: 20,

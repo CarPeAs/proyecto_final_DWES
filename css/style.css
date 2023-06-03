@@ -283,8 +283,14 @@ section{
    background-color: var(--main-color);
 }
 
-.swiper-button-next .swiper-button-prev{
+.swiper-button-next,
+.swiper-button-prev{
    background-color: var(--main-color);
+   outline: none;
+}
+
+div.swiper-button-next, div.swiper-button-prev {
+  top: 70%
 }
 
 .category .slide{

@@ -285,12 +285,12 @@ section{
 
 .swiper-button-next,
 .swiper-button-prev{
-   background-color: var(--main-color);
+   color: var(--main-color);
    outline: none;
 }
 
 div.swiper-button-next, div.swiper-button-prev {
-  top: 70%
+  top: 10%
 }
 
 .category .slide{

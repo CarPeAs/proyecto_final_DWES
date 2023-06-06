@@ -3,7 +3,13 @@
 include 'config/conectar_bd.php';
 require_once('vendor/stripe/stripe-php/init.php');
 
+require 'vendor/autoload.php';
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 session_start();
 
@@ -13,6 +19,38 @@ if(isset($_SESSION['id_usuario'])){
    $id_usuario = '';
    header('location:usuario_login.php');
 };
+
+// Función de envío de correo electrónico de confirmación de pedido
+function sendOrderConfirmationEmail($email, $orderDetails) {
+  
+  $mail = new PHPMailer(true);
+
+  try {
+    //Configuracion servidor mail
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    //$mail->SMTPDebug  = 1;
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'prueba.daw8@gmail.com';
+    $mail->Password   = 'unsckekyrssvwenw';
+    $mail->SMTPSecure = 'ssl'; //Modifico tls por ssl
+    $mail->Port       = 465; //Modifico el puerto 587 por el puerto 465
+
+    // Remitente y destinatario
+    $mail->setFrom('prueba.daw8@gmail.com', 'Supermercado Market');
+    $mail->addAddress($email);
+
+    // Asunto y cuerpo del e-mail
+    $mail->Subject = 'Comprobante del pedido';
+    $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: ' . $orderDetails;
+
+    // Enviar el e-mail
+    $mail->send();
+    echo 'Se ha enviado el correo electrónico de confirmación del pedido.';
+  } catch (Exception $e) {
+    echo "No se ha podido enviar el correo electrónico de confirmación del pedido. Error: {$mail->ErrorInfo}";
+  }
+}
 
 if(isset($_POST['pedido'])){
 
@@ -39,6 +77,18 @@ if(isset($_POST['pedido'])){
 
       $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
       $vaciar_cesta->execute([$id_usuario]);
+
+      // Redactar los detalles del pedido para el correo electrónico
+      $orderDetails = "Nombre: {$nombre}\n";
+      $orderDetails .= "Dirección: {$domicilio}\n";
+      $orderDetails .= "Email: {$email}\n";
+      $orderDetails .= "Método de Pago: {$metodo_pago}\n";
+      $orderDetails .= "Número: {$telefono}\n";
+      $orderDetails .= "Total de Artículos: {$total_productos}\n";
+      $orderDetails .= "Precio Total: €{$total_precio}/-\n";
+
+      // Enviar correo electrónico de confirmación del pedido
+      sendOrderConfirmationEmail($email, $orderDetails);
 
       $mensaje[] = 'pedido realizado con éxito!';
       header('refresh:2;location:index.php');

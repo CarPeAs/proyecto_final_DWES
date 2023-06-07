@@ -24,7 +24,7 @@ if(isset($_SESSION['id_usuario'])){
 };
 
 // Función de envío de correo electrónico de confirmación de pedido
-function sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nombre,$domicilio) {
+function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$id_pedido_string,$nombre,$domicilio,$total_precio) {
   
   $mail = new PHPMailer(true);
 
@@ -46,10 +46,10 @@ function sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nom
 
     // Asunto y cuerpo del e-mail
     $mail->Subject = 'Comprobante del pedido';
-    $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: <br/>'. $orderDetails;
+    $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: '. $orderDetails;
 
     // Generate the invoice PDF
-    $pdf = generateInvoicePDF($id_pedido_string,$nombre,$domicilio);
+    $pdf = generateInvoicePDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio);
     $pdfContent = $pdf->Output('factura.pdf', 'S');
 
     // Attach the PDF to the email
@@ -64,52 +64,66 @@ function sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nom
 }
 
 
-function generateInvoicePDF($id_pedido_string,$nombre,$domicilio)
+function generateInvoicePDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio)
 {
-    // Create new TCPDF instance
     $pdf = new MYPDF('P', 'mm', 'A4', true, 'UTF-8');
 
-    // Set document information
+    // Información del documento
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('Supermercado CYMARKET');
     $pdf->SetTitle('Factura');
     $pdf->SetSubject('Factura del pedido');
 
-    // Add a page
+   
     $pdf->AddPage();
 
-    // create address box
+    // Nombre y domicilio del usuario
    $pdf->CreateTextBox('Don/Dña: '.$nombre, 0, 60, 80, 10, 10);
    $pdf->CreateTextBox('Domicilio: '.$domicilio, 0, 65, 80, 10, 10);
    
    // invoice title / number
    // $pdf->CreateTextBox('Invoice #201012345', 0, 90, 120, 20, 16);
 
-   // date, order ref
+   // Fecha del pedido y id del pedido
    $pdf->CreateTextBox('Fecha: '.date('Y-m-d'), 0, 100, 0, 10, 10, '', 'R');
    $pdf->CreateTextBox('Ref. pedido: '.$id_pedido_string, 0, 105, 0, 10, 10, '', 'R');
 
    // some example data
-   $orders[] = array('quant' => 5, 'descr' => '.com domain registration', 'price' => 9.95);
-   $orders[] = array('quant' => 3, 'descr' => '.net domain name renewal', 'price' => 11.95);
-   $orders[] = array('quant' => 1, 'descr' => 'SSL certificate 256-Byte encryption', 'price' => 99.95);
-   $orders[] = array('quant' => 1, 'descr' => '25GB VPS Hosting, 200GB Bandwidth', 'price' => 19.95);
+   // $orders[] = array('quant' => 5, 'descr' => '.com domain registration', 'price' => 9.95);
+   // $orders[] = array('quant' => 3, 'descr' => '.net domain name renewal', 'price' => 11.95);
+   // $orders[] = array('quant' => 1, 'descr' => 'SSL certificate 256-Byte encryption', 'price' => 99.95);
+   // $orders[] = array('quant' => 1, 'descr' => '25GB VPS Hosting, 200GB Bandwidth', 'price' => 19.95);
+   // Add titles for Quantity, Unit Price, and Total
+   $pdf->CreateTextBox('Cantidad', 0, 128, 20, 10, 10, '', 'C');
+   $pdf->CreateTextBox('Descripción', 20, 128, 20, 10, 10, '');
+   $pdf->CreateTextBox('Precio UD', 100, 128, 30, 10, 10, '', 'R');
+   $pdf->CreateTextBox('Total', 120, 128, 30, 10, 10, '', 'R');
 
-   $currY = 128;
+   $currY = 138;
    $total = 0;
-   foreach ($orders as $row) {
-	$pdf->CreateTextBox($row['quant'], 0, $currY, 20, 10, 10, '', 'C');
-	$pdf->CreateTextBox($row['descr'], 20, $currY, 90, 10, 10, '');
-	$pdf->CreateTextBox('$'.$row['price'], 110, $currY, 30, 10, 10, '', 'R');
-	$amount = $row['quant']*$row['price'];
-	$pdf->CreateTextBox('€'.$amount, 140, $currY, 30, 10, 10, '', 'R');
-	$currY = $currY+5;
-	$total = $total+$amount;
+   $pdf->Line(20, $currY+2, 195, $currY+2);
+   
+   $selecc_cesta = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
+   $selecc_cesta->execute([$id_usuario]);
+
+   if ($selecc_cesta->rowCount() > 0) {
+   while ($fetch_cesta = $selecc_cesta->fetch(PDO::FETCH_ASSOC)) {
+      $pdf->CreateTextBox($fetch_cesta['cantidad'], 0, $currY, 20, 10, 10, '', 'C');
+      $pdf->CreateTextBox($fetch_cesta['nombre'], 20, $currY, 90, 10, 10, '');
+      $pdf->CreateTextBox('€'.$fetch_cesta['precio'], 110, $currY, 30, 10, 10, '', 'R');
+      
+      $amount = $fetch_cesta['cantidad'] * $fetch_cesta['precio'];
+      $pdf->CreateTextBox($amount.' €', 140, $currY, 30, 10, 10, '', 'R');
+      
+      $currY = $currY + 5;
+      $total += $amount;
    }
+}
+
    $pdf->Line(20, $currY+4, 195, $currY+4);
 
    // output the total row
-   $pdf->CreateTextBox('Total', 20, $currY+5, 135, 10, 10, 'B', 'R');
+   $pdf->CreateTextBox('Total: ', 20, $currY+5, 135, 10, 10, 'B', 'R');
    $pdf->CreateTextBox('€'.number_format($total, 2, '.', ''), 140, $currY+5, 30, 10, 10, 'B', 'R');
 
    // some payment instructions or information
@@ -123,11 +137,6 @@ function generateInvoicePDF($id_pedido_string,$nombre,$domicilio)
 
     // Set font
    //  $pdf->SetFont('helvetica', '', 12);
-
-    // Output content
-   //  $pdf->Cell(0, 10, 'Factura', 0, 1, 'C');
-   //  $pdf->Cell(0, 10, 'Detalles del pedido: ' . $orderDetails, 0, 1);
-    // Add more content to the PDF based on your invoice format
 
     return $pdf;
 }
@@ -162,25 +171,23 @@ if(isset($_POST['pedido'])){
       if ($ref_pedido->rowCount() > 0) {
          $row = $ref_pedido->fetch(PDO::FETCH_ASSOC);
          $id_pedido = $row['id'];
-         $id_pedido_string = strval($id_pedido-1); // Convert the ID to a string
-         // Use the $id_pedido_string as needed
+         $id_pedido_string = strval($id_pedido); // Convert the ID to a string
      }
       
-
-      $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
-      $vaciar_cesta->execute([$id_usuario]);
-
       // Redactar los detalles del pedido para el correo electrónico
       $orderDetails = "Nombre: {$nombre}\n";
       $orderDetails .= "Dirección: {$domicilio}\n";
       $orderDetails .= "Email: {$email}\n";
       $orderDetails .= "Método de Pago: {$metodo_pago}\n";
-      $orderDetails .= "Número: {$telefono}\n";
+      $orderDetails .= "Teléfono: {$telefono}\n";
       $orderDetails .= "Total de Artículos: {$total_productos}\n";
-      $orderDetails .= "Precio Total: €{$total_precio}/-\n";
+      $orderDetails .= "Precio Total: €{$total_precio}\n";
 
       // Enviar correo electrónico de confirmación del pedido
-      sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nombre,$domicilio);
+      sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$id_pedido_string,$nombre,$domicilio,$total_precio);
+
+      $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
+      $vaciar_cesta->execute([$id_usuario]);
 
       $mensaje[] = 'pedido realizado con éxito!';
       header('refresh:2;location:index.php');

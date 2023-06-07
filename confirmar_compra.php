@@ -8,6 +8,9 @@ require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
+require_once('vendor/tecnickcom/tcpdf/tcpdf.php');
+require_once('mi_pdf.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -21,7 +24,7 @@ if(isset($_SESSION['id_usuario'])){
 };
 
 // Función de envío de correo electrónico de confirmación de pedido
-function sendOrderConfirmationEmail($email, $orderDetails) {
+function sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nombre,$domicilio) {
   
   $mail = new PHPMailer(true);
 
@@ -35,6 +38,7 @@ function sendOrderConfirmationEmail($email, $orderDetails) {
     $mail->Password   = 'unsckekyrssvwenw';
     $mail->SMTPSecure = 'ssl'; //Modifico tls por ssl
     $mail->Port       = 465; //Modifico el puerto 587 por el puerto 465
+    $mail->isHTML(true);
 
     // Remitente y destinatario
     $mail->setFrom('prueba.daw8@gmail.com', 'Supermercado Market');
@@ -42,7 +46,14 @@ function sendOrderConfirmationEmail($email, $orderDetails) {
 
     // Asunto y cuerpo del e-mail
     $mail->Subject = 'Comprobante del pedido';
-    $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: ' . $orderDetails;
+    $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: <br/>'. $orderDetails;
+
+    // Generate the invoice PDF
+    $pdf = generateInvoicePDF($id_pedido_string,$nombre,$domicilio);
+    $pdfContent = $pdf->Output('factura.pdf', 'S');
+
+    // Attach the PDF to the email
+    $mail->addStringAttachment($pdfContent, 'factura.pdf');
 
     // Enviar el e-mail
     $mail->send();
@@ -51,6 +62,76 @@ function sendOrderConfirmationEmail($email, $orderDetails) {
     echo "No se ha podido enviar el correo electrónico de confirmación del pedido. Error: {$mail->ErrorInfo}";
   }
 }
+
+
+function generateInvoicePDF($id_pedido_string,$nombre,$domicilio)
+{
+    // Create new TCPDF instance
+    $pdf = new MYPDF('P', 'mm', 'A4', true, 'UTF-8');
+
+    // Set document information
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Supermercado CYMARKET');
+    $pdf->SetTitle('Factura');
+    $pdf->SetSubject('Factura del pedido');
+
+    // Add a page
+    $pdf->AddPage();
+
+    // create address box
+   $pdf->CreateTextBox('Don/Dña: '.$nombre, 0, 60, 80, 10, 10);
+   $pdf->CreateTextBox('Domicilio: '.$domicilio, 0, 65, 80, 10, 10);
+   
+   // invoice title / number
+   // $pdf->CreateTextBox('Invoice #201012345', 0, 90, 120, 20, 16);
+
+   // date, order ref
+   $pdf->CreateTextBox('Fecha: '.date('Y-m-d'), 0, 100, 0, 10, 10, '', 'R');
+   $pdf->CreateTextBox('Ref. pedido: '.$id_pedido_string, 0, 105, 0, 10, 10, '', 'R');
+
+   // some example data
+   $orders[] = array('quant' => 5, 'descr' => '.com domain registration', 'price' => 9.95);
+   $orders[] = array('quant' => 3, 'descr' => '.net domain name renewal', 'price' => 11.95);
+   $orders[] = array('quant' => 1, 'descr' => 'SSL certificate 256-Byte encryption', 'price' => 99.95);
+   $orders[] = array('quant' => 1, 'descr' => '25GB VPS Hosting, 200GB Bandwidth', 'price' => 19.95);
+
+   $currY = 128;
+   $total = 0;
+   foreach ($orders as $row) {
+	$pdf->CreateTextBox($row['quant'], 0, $currY, 20, 10, 10, '', 'C');
+	$pdf->CreateTextBox($row['descr'], 20, $currY, 90, 10, 10, '');
+	$pdf->CreateTextBox('$'.$row['price'], 110, $currY, 30, 10, 10, '', 'R');
+	$amount = $row['quant']*$row['price'];
+	$pdf->CreateTextBox('€'.$amount, 140, $currY, 30, 10, 10, '', 'R');
+	$currY = $currY+5;
+	$total = $total+$amount;
+   }
+   $pdf->Line(20, $currY+4, 195, $currY+4);
+
+   // output the total row
+   $pdf->CreateTextBox('Total', 20, $currY+5, 135, 10, 10, 'B', 'R');
+   $pdf->CreateTextBox('€'.number_format($total, 2, '.', ''), 140, $currY+5, 30, 10, 10, 'B', 'R');
+
+   // some payment instructions or information
+   $pdf->setXY(20, $currY+30);
+   $pdf->SetFont(PDF_FONT_NAME_MAIN, '', 10);
+   $pdf->MultiCell(175, 10, 'De acuerdo con lo establecido en el Reglamento Europeo 2016/679 y la normativa 
+   nacional sobre protección de datos, se le informa que los datos personales que pudieran aparecer en la 
+   presente factura serán tratados por el responsable del tratamiento SUPERMERCADO CYMARKET S.L. con la finalidad 
+   de llevar a cabo la gestión económica, fiscal, contable, administrativa y de facturación.', 0, 'L', 0, 1, '', '', true, null, true);
+
+
+    // Set font
+   //  $pdf->SetFont('helvetica', '', 12);
+
+    // Output content
+   //  $pdf->Cell(0, 10, 'Factura', 0, 1, 'C');
+   //  $pdf->Cell(0, 10, 'Detalles del pedido: ' . $orderDetails, 0, 1);
+    // Add more content to the PDF based on your invoice format
+
+    return $pdf;
+}
+
 
 if(isset($_POST['pedido'])){
 
@@ -75,6 +156,17 @@ if(isset($_POST['pedido'])){
       $realizar_pedido = $conex->prepare("INSERT INTO pedidos (nombre, direccion, email, metodo_pago, numero, precio_total,  total_articulos, id_usuario ) VALUES(?,?,?,?,?,?,?,?)");
       $realizar_pedido->execute([$nombre, $domicilio, $email, $metodo_pago, $telefono, $total_precio, $total_productos, $id_usuario]);
 
+      $ref_pedido = $conex->prepare("SELECT id FROM pedidos WHERE id_usuario = ? AND fecha_pedido = ?");
+      $ref_pedido->execute([$id_usuario, date('Y-m-d')]);
+
+      if ($ref_pedido->rowCount() > 0) {
+         $row = $ref_pedido->fetch(PDO::FETCH_ASSOC);
+         $id_pedido = $row['id'];
+         $id_pedido_string = strval($id_pedido-1); // Convert the ID to a string
+         // Use the $id_pedido_string as needed
+     }
+      
+
       $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
       $vaciar_cesta->execute([$id_usuario]);
 
@@ -88,7 +180,7 @@ if(isset($_POST['pedido'])){
       $orderDetails .= "Precio Total: €{$total_precio}/-\n";
 
       // Enviar correo electrónico de confirmación del pedido
-      sendOrderConfirmationEmail($email, $orderDetails);
+      sendOrderConfirmationEmail($email, $orderDetails,$id_pedido_string,$nombre,$domicilio);
 
       $mensaje[] = 'pedido realizado con éxito!';
       header('refresh:2;location:index.php');

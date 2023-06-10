@@ -1,7 +1,6 @@
 <?php
 
 include 'config/conectar_bd.php';
-require_once('vendor/stripe/stripe-php/init.php');
 
 require 'vendor/autoload.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
@@ -38,7 +37,7 @@ function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$
     $mail->Password   = 'unsckekyrssvwenw';
     $mail->SMTPSecure = 'ssl'; //Modifico tls por ssl
     $mail->Port       = 465; //Modifico el puerto 587 por el puerto 465
-    //$mail->isHTML(true);
+   //  $mail->isHTML(true);
 
     // Remitente y destinatario
     $mail->setFrom('prueba.daw8@gmail.com', 'Supermercado Market');
@@ -57,8 +56,7 @@ function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$
 
     // Enviar el e-mail
     $mail->send();
-    //echo 'Se ha enviado el correo electrónico de confirmación del pedido.';
-    $mensaje[] = 'Se ha enviado el correo electrónico de confirmación del pedido.';
+    echo 'Se ha enviado el correo electrónico de confirmación del pedido.';
   } catch (Exception $e) {
     echo "No se ha podido enviar el correo electrónico de confirmación del pedido. Error: {$mail->ErrorInfo}";
   }
@@ -158,11 +156,11 @@ if(isset($_POST['pedido'])){
 
    if($articulos_cesta->rowCount() > 0){
 
-      $realizar_pedido = $conex->prepare("INSERT INTO pedidos (nombre, direccion, email, metodo_pago, numero, precio_total,  total_articulos, id_usuario, fecha_pedido) VALUES(?,?,?,?,?,?,?,?,CURDATE())");
+      $realizar_pedido = $conex->prepare("INSERT INTO pedidos (nombre, direccion, email, metodo_pago, numero, precio_total,  total_articulos, id_usuario ) VALUES(?,?,?,?,?,?,?,?)");
       $realizar_pedido->execute([$nombre, $domicilio, $email, $metodo_pago, $telefono, $total_precio, $total_productos, $id_usuario]);
 
-      $ref_pedido = $conex->prepare("SELECT id FROM pedidos WHERE id_usuario = ? AND fecha_pedido = ? AND precio_total= ? ");
-      $ref_pedido->execute([$id_usuario, date('Y-m-d'),$total_precio]);
+      $ref_pedido = $conex->prepare("SELECT id FROM pedidos WHERE id_usuario = ? AND fecha_pedido = ?");
+      $ref_pedido->execute([$id_usuario, date('Y-m-d')]);
 
       if ($ref_pedido->rowCount() > 0) {
          $row = $ref_pedido->fetch(PDO::FETCH_ASSOC);
@@ -185,8 +183,8 @@ if(isset($_POST['pedido'])){
       $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
       $vaciar_cesta->execute([$id_usuario]);
 
-      header('refresh:2;location:index.php');
       $mensaje[] = 'pedido realizado con éxito!';
+      header('refresh:2;location:index.php');
    }else{
       $mensaje[] = 'tu carro esta vacio';
    }
@@ -196,124 +194,15 @@ if(isset($_POST['pedido'])){
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>comprobación</title>
-   
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-
-   <link rel="stylesheet" href="css/style.css">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/checkout.css">
+    <title>Thanks for your order!</title>
 </head>
 <body>
-   
-<?php include 'views/usuario/usuario_header.php'; ?>
-
-<section class="checkout-orders">
-
-   <form action="" method="POST">
-
-   <h3>sus pedidos</h3>
-
-      <div class="display-orders">
-      <?php
-         $total = 0;
-         $articulos_cesta = '';
-         $selecc_cesta = $conex->prepare("SELECT * FROM cesta WHERE id_usuario = ?");
-         $selecc_cesta->execute([$id_usuario]);
-         
-         if($selecc_cesta->rowCount() > 0){
-            $total_articulos = ""; 
-            while($fetch_cesta = $selecc_cesta->fetch(PDO::FETCH_ASSOC)){
-               $articulos_cesta = $fetch_cesta['nombre'].' ('.$fetch_cesta['precio'].' x '.$fetch_cesta['cantidad'].')';
-               $total_articulos .= $articulos_cesta . " - ";
-               $total += ($fetch_cesta['precio'] * $fetch_cesta['cantidad']);
-      ?>
-         <p> <?= $fetch_cesta['nombre']; ?> <span>(<?= '€'.$fetch_cesta['precio'].'/- x '. $fetch_cesta['cantidad']; ?>)</span> </p>
-      <?php
-            }
-            
-         }else{
-            echo '<p class="empty">¡su cesta está vacía!</p>';
-         }
-      ?>
-         <input type="hidden" name="total_productos" value="<?= $total_articulos; ?>">
-         <input type="hidden" name="total_precio" value="<?= $total; ?>" value="">
-         <div class="grand-total">Total : <span>€<?= $total; ?>/-</span></div>
-      </div>
-
-      <h3>realice sus pedidos</h3>
-
-      <div class="flex">
-         <div class="inputBox">
-            <span>tu nombre :</span>
-            <input type="text" name="nombre" placeholder="introduce tu nombre" class="box" maxlength="20" required>
-         </div>
-         <div class="inputBox">
-            <span>tu numero :</span>
-            <input type="number" name="telefono" placeholder="introduce tu numero" class="box" min="0" max="9999999999" onkeypress="if(this.value.length == 10) return false;" required>
-         </div>
-         <div class="inputBox">
-            <span>tu email :</span>
-            <input type="email" name="email" placeholder="introduce tu email" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>metodo de pago :</span>
-            <select name="metodo_pago" class="box" required>
-               <option value="tarjeta de credito">tarjeta de credito</option>
-               <option value="paypal">paypal</option>
-            </select>
-         </div>
-         <div class="inputBox">
-            <span>dirección línea 01 :</span>
-            <input type="text" name="piso" placeholder="e.g. planta baja" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>dirección línea 02 :</span>
-            <input type="text" name="calle" placeholder="e.g. Carrer Illueca, 28" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>ciudad :</span>
-            <input type="text" name="ciudad" placeholder="e.g. elche" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>provincia :</span>
-            <input type="text" name="provincia" placeholder="e.g. alicante" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>pais :</span>
-            <input type="text" name="pais" placeholder="e.g. España" class="box" maxlength="50" required>
-         </div>
-         <div class="inputBox">
-            <span>codigo postal :</span>
-            <input type="number" min="0" name="cd_postal" placeholder="e.g. 03206" min="0" max="999999" onkeypress="if(this.value.length == 6) return false;" class="box" required>
-         </div>
-      </div>
-
-      <input type="submit" name="pedido" class="btn <?= ($total > 1)?'':'disabled'; ?>" value="realizar pedido">
-
-   </form>
-
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php include 'views/usuario/usuario_footer.php'; ?>
-
-<script src="js/script.js"></script>
-
+    <h1>EXITOSO</h1>
 </body>
 </html>

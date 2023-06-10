@@ -95,42 +95,42 @@ include 'modelo_cesta.php';
    <div class="swiper-wrapper">
 
    <a href="categorias.php?categoria=laptop" class="swiper-slide slide">
-      <img src="img/icon-1.png" alt="">
+      <img src="img/icon-11.png" alt="">
       <h3>portátiles</h3>
    </a>
 
    <a href="categorias.php?categoria=tv" class="swiper-slide slide">
-      <img src="img/icon-2.png" alt="">
+      <img src="img/icon-12.png" alt="">
       <h3>televisión</h3>
    </a>
 
    <a href="categorias.php?categoria=camara" class="swiper-slide slide">
-      <img src="img/icon-3.png" alt="">
+      <img src="img/icon-13.png" alt="">
       <h3>camara</h3>
    </a>
 
    <a href="categorias.php?categoria=raton" class="swiper-slide slide">
-      <img src="img/icon-4.png" alt="">
+      <img src="img/icon-14.png" alt="">
       <h3>raton</h3>
    </a>
 
    <a href="categorias.php?categoria=frigorifico" class="swiper-slide slide">
-      <img src="img/icon-5.png" alt="">
+      <img src="img/icon-15.png" alt="">
       <h3>frigoríficos</h3>
    </a>
 
    <a href="categorias.php?categoria=lavadora" class="swiper-slide slide">
-      <img src="img/icon-6.png" alt="">
+      <img src="img/icon-16.png" alt="">
       <h3>lavadoras</h3>
    </a>
 
    <a href="categorias.php?categoria=smartphone" class="swiper-slide slide">
-      <img src="img/icon-7.png" alt="">
+      <img src="img/icon-17.png" alt="">
       <h3>smartphone</h3>
    </a>
 
    <a href="categorias.php?categoria=smartwatch" class="swiper-slide slide">
-      <img src="img/icon-8.png" alt="">
+      <img src="img/icon-22.png" alt="">
       <h3>smartwatch</h3>
    </a>
 

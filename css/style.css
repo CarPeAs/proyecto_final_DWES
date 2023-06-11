@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
 
 :root{
-   --main-color:#3d9266;
+   --main-color:#7fad39;
    --naranja:#f39c12;
    --rojo:#e74c3c;
    --negro:#333;
@@ -167,9 +167,19 @@ section{
    position: relative;
 }
 
+/*Modifique la parte del logo para una imagen pero aun no funciona*/
 .header .flex .logo{
    font-size: 2.5rem;
    color:var(--negro);
+   padding: 15px 0;
+}
+
+.header .flex .logo a {
+	display: inline-block;
+}
+
+.header .flex .logo .a img{
+   width: 100%;
 }
 
 .header .flex .logo span{
@@ -233,7 +243,7 @@ section{
 }
 
 .home-bg{
-   background:url(../img/home-bg.png) no-repeat;
+   background:url(../img/home-bg-1.jpg) no-repeat;
    background-size: cover;
    background-position: center;
 }
@@ -264,13 +274,13 @@ section{
 
 .home-bg .home .slide .content span{
    font-size: 2rem;
-   color:var(--blanco);
+   color:var(--negro);
 }
 
 .home-bg .home .slide .content h3{
    margin-top: 1rem;
    font-size: 4rem;
-   color:var(--blanco);
+   color:var(--negro);
    text-transform: uppercase;
 }
 

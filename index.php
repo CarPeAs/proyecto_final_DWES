@@ -42,33 +42,33 @@ include 'modelo_cesta.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="img/home-img-1.png" alt="">
+         <a href="https://www.vecteezy.com/free-png/wine"><img src="img/home-img-1.png" alt=""></a>
          </div>
          <div class="content">
-            <span>promociones</span>
-            <h3>smartphones</h3>
+            <span>Una copa de</span>
+            <h3>los mejores vinos</h3>
             <a href="catalogo.php" class="btn">comprar ahora</a>
          </div>
       </div>
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="img/home-img-2.png" alt="">
+         <a href="https://www.vecteezy.com/free-png/bread"><img src="img/home-img-2.png" alt=""></a>
          </div>
          <div class="content">
-            <span>hasta -30% </span>
-            <h3>ultimos smartwatches</h3>
+            <span>Directo del horno</span>
+            <h3>panader&iacute;a y boller&iacute;a</h3>
             <a href="catalogo.php" class="btn">comprar ahora</a>
          </div>
       </div>
 
       <div class="swiper-slide slide">
          <div class="image">
-            <img src="img/home-img-3.png" alt="">
+            <a href="https://www.vecteezy.com/free-png/fruits"><img src="img/home-img-3.png" alt=""></a>
          </div>
          <div class="content">
-            <span>top ventas</span>
-            <h3>consolas</h3>
+            <span>Las m&aacute;s frescas</span>
+            <h3>frutas y vegetales</h3>
             <a href="catalogo.php" class="btn">comprar ahora</a>
          </div>
       </div>
@@ -94,44 +94,44 @@ include 'modelo_cesta.php';
 
    <div class="swiper-wrapper">
 
-   <a href="categorias.php?categoria=laptop" class="swiper-slide slide">
-      <img src="img/icon-11.png" alt="">
-      <h3>portátiles</h3>
+   <a href="categorias.php?categoria=vinos" class="swiper-slide slide">
+      <img src="img/categoria/icon-11.png" alt="">
+      <h3>vinos</h3>
    </a>
 
    <a href="categorias.php?categoria=tv" class="swiper-slide slide">
-      <img src="img/icon-12.png" alt="">
-      <h3>televisión</h3>
+      <img src="img/categoria/icon-23.png" alt="">
+      <h3>pescader&iacute;a</h3>
    </a>
 
-   <a href="categorias.php?categoria=camara" class="swiper-slide slide">
-      <img src="img/icon-13.png" alt="">
-      <h3>camara</h3>
+   <a href="categorias.php?categoria=panaderia" class="swiper-slide slide">
+      <img src="img/categoria/icon-13.png" alt="">
+      <h3>panader&iacute;a</h3>
    </a>
 
-   <a href="categorias.php?categoria=raton" class="swiper-slide slide">
-      <img src="img/icon-14.png" alt="">
-      <h3>raton</h3>
+   <a href="categorias.php?categoria=carniceria" class="swiper-slide slide">
+      <img src="img/categoria/icon-14.png" alt="">
+      <h3>carniceria</h3>
    </a>
 
-   <a href="categorias.php?categoria=frigorifico" class="swiper-slide slide">
-      <img src="img/icon-15.png" alt="">
-      <h3>frigoríficos</h3>
+   <a href="categorias.php?categoria=limpieza" class="swiper-slide slide">
+      <img src="img/categoria/icon-15.png" alt="">
+      <h3>limpieza</h3>
    </a>
 
-   <a href="categorias.php?categoria=lavadora" class="swiper-slide slide">
-      <img src="img/icon-16.png" alt="">
-      <h3>lavadoras</h3>
+   <a href="categorias.php?categoria=frutas" class="swiper-slide slide">
+      <img src="img/categoria/icon-16.png" alt="">
+      <h3>frutas</h3>
    </a>
 
-   <a href="categorias.php?categoria=smartphone" class="swiper-slide slide">
-      <img src="img/icon-17.png" alt="">
-      <h3>smartphone</h3>
+   <a href="categorias.php?categoria=verduras" class="swiper-slide slide">
+      <img src="img/categoria/icon-17.png" alt="">
+      <h3>verduras</h3>
    </a>
 
-   <a href="categorias.php?categoria=smartwatch" class="swiper-slide slide">
-      <img src="img/icon-22.png" alt="">
-      <h3>smartwatch</h3>
+   <a href="categorias.php?categoria=mascotas" class="swiper-slide slide">
+      <img src="img/categoria/icon-22.png" alt="">
+      <h3>mascotas</h3>
    </a>
 
    </div>

@@ -18,7 +18,7 @@
 
    <section class="flex">
 
-      <a href="index.php" class="logo">DWES<span>.</span></a>
+      <a href="index.php" class="logo">CYMARKET<span></span></a>
 
       <nav class="navbar">
          <a href="index.php">Inicio</a>

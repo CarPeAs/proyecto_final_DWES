@@ -1,0 +1,33 @@
+@import 'variables';
+
+.search-form form{
+    display: flex;
+    gap:1rem;
+
+    input{
+        width: 100%;
+        border:$border;
+        border-radius: .5rem;
+        background-color: $blanco;
+        box-shadow: $box-shadow;
+        padding:1.4rem;
+        font-size: 1.8rem;
+        color:$negro;
+     }
+    
+    button{
+        font-size: 2.5rem;
+        height: 5.5rem;
+        line-height: 5.5rem;
+        background-color: $main-color;
+        cursor: pointer;
+        color:$blanco;
+        border-radius: .5rem;
+        width: 6rem;
+        text-align: center;
+
+        &:hover{
+            background-color: $negro;
+         }
+     }
+ }

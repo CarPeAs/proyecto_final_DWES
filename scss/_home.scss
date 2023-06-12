@@ -1,0 +1,59 @@
+@import 'variables';
+
+.home-bg{
+    background: url(../img/home-bg-1.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+    .home .slide{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap:1.5rem;
+        padding-bottom: 6rem;
+        padding-top: 2rem;
+        user-select: none;
+
+        .image{
+            flex:1 1 40rem;
+
+            img{
+                height: 40rem;
+                width: 100%;
+                object-fit: contain;
+             }
+         }
+
+         .content{
+            flex:1 1 40rem;
+
+            span{
+                font-size: 2rem;
+                color:$main-text;
+             }
+
+            h3{
+                margin-top: 1rem;
+                font-size: 4rem;
+                color:$main-text;
+                text-transform: uppercase;
+             }
+
+            .btn{
+                display: inline-block;
+                width: auto;
+             }
+         }
+     }
+
+}
+
+.swiper-pagination-bullet-active{
+    background-color: $main-color;;
+ }
+
+.swiper-button-next,
+.swiper-button-prev{
+   color: $main-color;
+   outline: none;
+}

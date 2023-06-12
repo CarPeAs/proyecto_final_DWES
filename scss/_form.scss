@@ -1,0 +1,34 @@
+@import 'variables';
+
+.form-container form{
+    background-color: $blanco;
+    padding:2rem;
+    border-radius: .5rem;
+    border:$border;
+    box-shadow: $box-shadow;
+    text-align: center;
+    margin:0 auto;
+    max-width: 50rem;
+
+    h3{
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        color:$main-text;
+     }
+    
+    p{
+        font-size: 2rem;
+        color:$light-color;
+        margin:1.5rem 0;
+     }
+    
+    .box{
+        margin:1rem 0;
+        background-color: $light-bg;
+        padding:1.4rem;
+        font-size: 1.8rem;
+        color:$negro;  
+        width: 100%;
+        border-radius: .5rem;
+     }
+ }

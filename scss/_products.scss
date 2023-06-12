@@ -1,0 +1,53 @@
+@import 'variables';
+
+.products .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 33rem);
+    gap:1.5rem;
+    justify-content: center;
+    align-items: flex-start;
+
+    .box{
+        position: relative;
+        background-color: $blanco;
+        box-shadow: $box-shadow;
+        border-radius: .5rem;
+        border:$border;
+        padding:2rem;
+        overflow: hidden;
+
+        img{
+            height: 20rem;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 1rem;
+         }
+        
+        .name{
+            font-size: 2rem;
+            color:$main-text;
+         }
+        
+        .flex{
+            display: flex;
+            align-items: center;
+            gap:1rem;
+
+            .qty{
+                width: 7rem;
+                padding:1rem;
+                border:$border;
+                font-size: 1.8rem;
+                color:$main-text;
+                border-radius: .5rem;
+             }
+            
+            .price{
+                font-size: 2rem;
+                color:$rojo;
+                margin-right: auto;
+             }
+         }
+     }
+}
+ 

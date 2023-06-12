@@ -1,0 +1,31 @@
+@import 'variables';
+@import 'mixins';
+
+@import 'base';
+@import 'typography';
+
+/* Grid container */
+.container {
+  max-width: $container-max-width;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: $container-padding;
+  padding-right: $container-padding;
+}
+
+/* Grid columns */
+.column {
+  float: left;
+  margin-left: $gutter-width / 2;
+  margin-right: $gutter-width / 2;
+  width: calc((100% - (($grid-columns - 1) * $gutter-width)) / $grid-columns);
+}
+
+/* Clearfix for columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Additional grid styles... */

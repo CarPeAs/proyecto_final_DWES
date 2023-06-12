@@ -1,0 +1,58 @@
+@import 'variables';
+
+
+*{
+  font-family: $font-family;
+  margin:0; padding:0;
+  box-sizing: border-box;
+  outline: none; 
+  border:none;
+  text-decoration: none;
+}
+
+//* Selecciona todos los elementos */
+*::selection{
+  background-color: $main-color;
+  color: $blanco;
+}
+
+//Afecta el estilo de la barra de desplazamiento asociada a un elemento
+::-webkit-scrollbar{
+  height: .5rem;
+  width: 1rem;
+}
+
+//the track(barra de progreso) de la barra de desplazamiento, donde hay una barra gris sobre una barra blanca
+::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+//el control de desplazamiento arrastrable
+::-webkit-scrollbar-thumb{
+  background-color: $main-color;
+}
+
+html{
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: $light-bg;
+}
+
+section{
+  padding:2rem;
+  max-width: 1200px;
+  margin:0 auto;
+}
+
+.heading{
+  font-size: 4rem;
+  color:$main-text;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+  
+  

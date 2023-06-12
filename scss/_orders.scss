@@ -1,0 +1,28 @@
+@import 'variables';
+
+.orders .box-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1.5rem;
+    align-items: flex-start;
+
+    .box{
+        padding:1rem 2rem;
+        flex:1 1 40rem;
+        border:$border;
+        background-color: $blanco;
+        box-shadow: $box-shadow;
+        border-radius: .5rem;
+
+        p{
+            margin:.5rem 0;
+            line-height: 1.8;
+            font-size: 2rem;
+            color:$light-color;
+
+            span{
+                color: $main-color;
+             }
+         }
+     }
+ }

@@ -1,0 +1,58 @@
+@import 'variables';
+
+.about .row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:1.5rem;
+
+    .image{
+        flex:1 1 40rem;
+
+        img{
+            width: 100%;
+         }
+     }
+
+    .content{
+        flex:1 1 40rem;
+
+        h1{
+            font-size: 4rem;
+            color:$main-color;
+         }
+
+        h2{
+            font-size: 3.5rem;
+            color:$main-color;
+         }
+        
+        h3{
+            font-size: 3rem;
+            color:$main-text;
+         }
+        
+        p{
+            line-height: 2;
+            font-size: 1.5rem;
+            color:$light-color;
+            padding:1rem 0;
+            text-align: justify;
+         }
+        
+        li{
+            line-height: 2;
+            font-size: 1.5rem;
+            color:$light-color;
+            padding:0.5rem 0;
+            text-align: justify;
+         }
+        
+        .btn{
+            display: inline-block;
+            width: auto;
+         }
+     }
+ }
+ 

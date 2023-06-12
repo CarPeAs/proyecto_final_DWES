@@ -1,0 +1,47 @@
+@import 'variables';
+
+.checkout-orders form{
+    padding:2rem;
+    border:$border;
+    background-color: $blanco;
+    box-shadow: $box-shadow;
+    border-radius: .5rem;
+
+    h3{
+        border-radius: .5rem;
+        background-color: $negro;
+        color: $blanco;
+        padding:1.5rem 1rem;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+     }
+
+    .flex{
+        display: flex;
+        flex-wrap: wrap;
+        gap:1.5rem;
+        justify-content: space-between;
+
+        .inputBox{
+            width: 49%;
+
+            .box{
+                width: 100%;
+                border:$border;
+                border-radius: .5rem;
+                font-size: 1.8rem;
+                color:$negro;
+                padding:1.2rem 1.4rem;
+                margin:1rem 0;
+                background-color: $light-bg;
+             }
+
+            span{
+                font-size: 1.8rem;
+                color:$light-color;
+             }
+         }
+     }
+ }

@@ -43,7 +43,7 @@ if(isset($_POST['actualizar_cantidad'])){
    <title>cesta compra</title>
    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/main.css">
 
 </head>
 <body>

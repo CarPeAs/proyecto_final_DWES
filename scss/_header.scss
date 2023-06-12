@@ -1,0 +1,95 @@
+@import 'variables';
+
+
+.header {
+  position: sticky;
+  top:0; left:0; right:0;
+  background-color: $blanco;
+  box-shadow: $box-shadow;
+  z-index: 1000;
+  
+  .flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    .logo{
+      font-size: 2.5rem;
+      color: $main-text;
+      padding: 15px 0;
+
+      a{
+        display: inline-block;
+
+        img{
+          width: 100%;
+        }
+      }
+
+      span{
+        color: $main-color;
+      }
+    }
+
+    .navbar a{
+      margin:0 1rem;
+      font-size: 2rem;
+      color:$main-text;
+
+      &:hover{
+        color:$main-color;
+        text-decoration: underline;
+      }
+    }
+
+    .icons > *{
+      margin-left: 1rem;
+      font-size: 2.5rem;
+      cursor: pointer;
+      color:$main-text;
+
+      &:hover{
+        color:$main-color;
+     }
+   }
+
+   .icons a span{
+    font-size: 2rem;
+    }
+
+
+    .perfil{
+      position: absolute;
+      top:120%; right:2rem;
+      background-color: $blanco;
+      border-radius: .5rem;
+      box-shadow: $box-shadow;
+      border:$border;
+      padding:2rem;
+      width: 30rem;
+      padding-top: 1.2rem;
+      display: none;
+      animation:fadeIn .2s linear;
+
+      .active{
+        display: inline-block;
+     }
+
+     p{
+      text-align: center;
+      color:$main-text;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+   }
+
+  }
+
+}
+
+#menu-btn{
+  display: none;
+}
+

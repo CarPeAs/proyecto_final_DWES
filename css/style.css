@@ -243,10 +243,13 @@ section{
 }
 
 .home-bg{
-   background:url(../img/home-bg-1.jpg) no-repeat;
+   background: url(../img/home-bg-1.jpg) no-repeat;
    background-size: cover;
    background-position: center;
+   
 }
+
+
 
 .home-bg .home .slide{
    display: flex;
@@ -385,6 +388,7 @@ div.swiper-button-next, div.swiper-button-prev {
    color:var(--rojo);
 }
 
+/*NO USADO*/
 .home-products .slide .fa-heart,
 .home-products .slide .fa-eye{
    position: absolute;
@@ -541,6 +545,7 @@ div.swiper-button-next, div.swiper-button-prev {
    margin-bottom: 1rem;
 }
 
+/*NO UTILIZADO*/
 .products .box-container .box .fa-heart,
 .products .box-container .box .fa-eye{
    position: absolute;
@@ -807,6 +812,7 @@ div.swiper-button-next, div.swiper-button-prev {
    background-color: var(--negro);
 }
 
+/*NO UTILIZADO*/
 .wishlist-total{
    max-width: 50rem;
    margin:0 auto;

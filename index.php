@@ -22,7 +22,8 @@ include 'modelo_cesta.php';
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>inicio</title>
    
-   <link rel="stylesheet" href="css/style.css">
+   <!-- <link rel="stylesheet" href="css/style.css"> -->
+   <link rel="stylesheet" href="css/main.css">
    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
    
@@ -35,14 +36,14 @@ include 'modelo_cesta.php';
 <div class="home-bg">
 
 <section class="home">
-
+   
    <div class="swiper home-slider">
    
    <div class="swiper-wrapper">
 
       <div class="swiper-slide slide">
          <div class="image">
-         <a href="https://www.vecteezy.com/free-png/wine"><img src="img/home-img-1.png" alt=""></a>
+         <a href="https://www.vecteezy.com/free-png/wine"><img src="img/home-img-1.png" alt="una botella de vino y dos copas"></a>
          </div>
          <div class="content">
             <span>Una copa de</span>
@@ -53,7 +54,7 @@ include 'modelo_cesta.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-         <a href="https://www.vecteezy.com/free-png/bread"><img src="img/home-img-2.png" alt=""></a>
+         <a href="https://www.vecteezy.com/free-png/bread"><img src="img/home-img-2.png" alt="una barra de pan"></a>
          </div>
          <div class="content">
             <span>Directo del horno</span>
@@ -64,7 +65,7 @@ include 'modelo_cesta.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-            <a href="https://www.vecteezy.com/free-png/fruits"><img src="img/home-img-3.png" alt=""></a>
+            <a href="https://www.vecteezy.com/free-png/fruits"><img src="img/home-img-3.png" alt="una cesta con frutas"></a>
          </div>
          <div class="content">
             <span>Las m&aacute;s frescas</span>
@@ -94,43 +95,43 @@ include 'modelo_cesta.php';
 
    <div class="swiper-wrapper">
 
-   <a href="categorias.php?categoria=vinos" class="swiper-slide slide">
-      <img src="img/categoria/icon-11.png" alt="">
+   <a href="categorias.php?categoria=vino" class="swiper-slide slide">
+      <img src="img/categoria/icon-11.png" alt="botella de vino y copa">
       <h3>vinos</h3>
    </a>
 
-   <a href="categorias.php?categoria=tv" class="swiper-slide slide">
-      <img src="img/categoria/icon-23.png" alt="">
+   <a href="categorias.php?categoria=pescado" class="swiper-slide slide">
+      <img src="img/categoria/icon-23.png" alt="imagen de un pez">
       <h3>pescader&iacute;a</h3>
    </a>
 
-   <a href="categorias.php?categoria=panaderia" class="swiper-slide slide">
-      <img src="img/categoria/icon-13.png" alt="">
+   <a href="categorias.php?categoria=pan" class="swiper-slide slide">
+      <img src="img/categoria/icon-13.png" alt="cesta con articulos de panadería">
       <h3>panader&iacute;a</h3>
    </a>
 
    <a href="categorias.php?categoria=carniceria" class="swiper-slide slide">
-      <img src="img/categoria/icon-14.png" alt="">
-      <h3>carniceria</h3>
+      <img src="img/categoria/icon-14.png" alt="una silueta de un pollo en una balanza">
+      <h3>carnicer&iacute;a</h3>
    </a>
 
    <a href="categorias.php?categoria=limpieza" class="swiper-slide slide">
-      <img src="img/categoria/icon-15.png" alt="">
+      <img src="img/categoria/icon-15.png" alt="un envase de detergente">
       <h3>limpieza</h3>
    </a>
 
    <a href="categorias.php?categoria=frutas" class="swiper-slide slide">
-      <img src="img/categoria/icon-16.png" alt="">
+      <img src="img/categoria/icon-16.png" alt="una cesta con manzanas">
       <h3>frutas</h3>
    </a>
 
    <a href="categorias.php?categoria=verduras" class="swiper-slide slide">
-      <img src="img/categoria/icon-17.png" alt="">
+      <img src="img/categoria/icon-17.png" alt="una cesta con zanahorias">
       <h3>verduras</h3>
    </a>
 
    <a href="categorias.php?categoria=mascotas" class="swiper-slide slide">
-      <img src="img/categoria/icon-22.png" alt="">
+      <img src="img/categoria/icon-22.png" alt="una huella de un gato">
       <h3>mascotas</h3>
    </a>
 

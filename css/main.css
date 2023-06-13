@@ -97,7 +97,7 @@ section {
   top: 0;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: var(--light-bg);
+  background-color: #7fad39;
   padding: 2rem;
   display: flex;
   align-items: center;
@@ -120,11 +120,11 @@ section {
 
 .empty {
   padding: 1.5rem;
-  background-color: var(--blanco);
-  border: var(--border);
-  box-shadow: var(--box-shadow);
+  background-color: #fff;
+  border: 0.2rem solid #333;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: var(--rojo);
+  color: #e74c3c;
   border-radius: 0.5rem;
   font-size: 2rem;
   text-transform: capitalize;
@@ -207,14 +207,14 @@ section {
   display: none;
   animation: fadeIn 0.2s linear;
 }
-.header .flex .perfil .active {
-  display: inline-block;
-}
 .header .flex .perfil p {
   text-align: center;
   color: #333;
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+.header .flex .perfil.active {
+  display: inline-block;
 }
 
 #menu-btn {

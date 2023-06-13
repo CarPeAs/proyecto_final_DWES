@@ -227,7 +227,7 @@ section{
    animation:fadeIn .2s linear;
 }
 
-.header .flex .perfil.active{
+.header .flex .perfil .active{
    display: inline-block;
 }
 

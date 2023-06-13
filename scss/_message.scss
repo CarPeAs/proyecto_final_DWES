@@ -5,7 +5,7 @@
     top:0;
     max-width: 1200px;
     margin:0 auto;
-    background-color: var(--light-bg);
+    background-color: $main-color;
     padding:2rem;
     display: flex;
     align-items: center;
@@ -31,11 +31,11 @@
 
  .empty{
     padding:1.5rem;
-    background-color: var(--blanco);
-    border: var(--border);
-    box-shadow: var(--box-shadow);
+    background-color: $blanco;
+    border: $border;
+    box-shadow: $box-shadow;
     text-align: center;
-    color:var(--rojo);
+    color: $rojo;
     border-radius: .5rem;
     font-size: 2rem;
     text-transform: capitalize;

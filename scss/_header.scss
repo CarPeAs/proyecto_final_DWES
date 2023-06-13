@@ -72,10 +72,6 @@
       display: none;
       animation:fadeIn .2s linear;
 
-      .active{
-        display: inline-block;
-     }
-
      p{
       text-align: center;
       color:$main-text;
@@ -83,6 +79,10 @@
       margin-bottom: 1rem;
     }
 
+   }
+
+   .perfil.active{
+    display: inline-block;
    }
 
   }

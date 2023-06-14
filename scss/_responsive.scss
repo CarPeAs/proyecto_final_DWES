@@ -13,6 +13,10 @@
     #menu-btn{
        display: inline-block;
     }
+
+    .home-bg{
+      background: url(../img/home-bg-white.jpg) no-repeat;
+   }
  
     .header .flex .navbar{
        position: absolute;
@@ -48,6 +52,10 @@
     html{
        font-size: 50%;
     }
+ 
+    .home-bg{
+      background: url(../img/home-bg-white.jpg) no-repeat;
+   }
  
     .heading{
        font-size: 3rem;

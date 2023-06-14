@@ -11,7 +11,7 @@
     &:hover{
         background-color: $negro;
         img{
-            filter:invert($negro, $weight: 100%);
+            filter:invert(100%);
          }
         h3{
             color:$blanco;

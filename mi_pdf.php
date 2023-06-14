@@ -4,7 +4,7 @@ require_once('vendor/tecnickcom/tcpdf/tcpdf.php');
 class MYPDF extends TCPDF {
 	public function Header() {
 		$this->setJPEGQuality(90);
-		$this->Image('img/logoCy.jpeg', 120, 10, 65, 0, 'JPEG', 'http://carpeas.com');
+		$this->Image('img/logoCy.jpeg', 120, 10, 65, 0, 'JPEG', 'https://carpeas.com/');
 
 	}
 	public function Footer() {

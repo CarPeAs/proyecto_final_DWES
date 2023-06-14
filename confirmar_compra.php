@@ -35,7 +35,7 @@ function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$
     //$mail->SMTPDebug  = 1;
     $mail->SMTPAuth   = true;
     $mail->Username   = 'prueba.daw8@gmail.com';
-    $mail->Password   = 'unsckekyrssvwenw';
+    $mail->Password   = 'password';
     $mail->SMTPSecure = 'ssl'; //Modifico tls por ssl
     $mail->Port       = 465; //Modifico el puerto 587 por el puerto 465
     //$mail->isHTML(true);
@@ -48,11 +48,11 @@ function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$
     $mail->Subject = 'Comprobante del pedido';
     $mail->Body    = 'Gracias por su pedido. Aquí están los detalles del pedido: '. $orderDetails;
 
-    // Generate the invoice PDF
-    $pdf = generateInvoicePDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio);
+    // Generar la factura PDF
+    $pdf = generarFacturaPDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio);
     $pdfContent = $pdf->Output('factura.pdf', 'S');
 
-    // Attach the PDF to the email
+    // Adjuntar PDF al email
     $mail->addStringAttachment($pdfContent, 'factura.pdf');
 
     // Enviar el e-mail
@@ -65,7 +65,7 @@ function sendOrderConfirmationEmail($conex, $id_usuario, $email, $orderDetails,$
 }
 
 
-function generateInvoicePDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio)
+function generarFacturaPDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicilio,$total_precio)
 {
     $pdf = new MYPDF('P', 'mm', 'A4', true, 'UTF-8');
 
@@ -82,14 +82,10 @@ function generateInvoicePDF($conex,$id_usuario,$id_pedido_string,$nombre,$domici
    $pdf->CreateTextBox('Don/Dña: '.$nombre, 0, 60, 80, 10, 10);
    $pdf->CreateTextBox('Domicilio: '.$domicilio, 0, 65, 80, 10, 10);
    
-   // invoice title / number
-   // $pdf->CreateTextBox('Invoice #201012345', 0, 90, 120, 20, 16);
-
    // Fecha del pedido y id del pedido
    $pdf->CreateTextBox('Fecha: '.date('Y-m-d'), 0, 100, 0, 10, 10, '', 'R');
    $pdf->CreateTextBox('Ref. pedido: '.$id_pedido_string, 0, 105, 0, 10, 10, '', 'R');
 
-   // Add titles for Quantity, Unit Price, and Total
    $pdf->CreateTextBox('Cantidad', 0, 128, 20, 10, 10, '', 'C');
    $pdf->CreateTextBox('Descripción', 20, 128, 20, 10, 10, '');
    $pdf->CreateTextBox('Precio UD', 100, 128, 30, 10, 10, '', 'R');
@@ -205,7 +201,7 @@ if(isset($_POST['pedido'])){
    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="css/main.css">
+   <link rel="stylesheet" href="css/ma.css">
 
 </head>
 <body>

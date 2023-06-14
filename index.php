@@ -54,7 +54,7 @@ include 'modelo_cesta.php';
 
       <div class="swiper-slide slide">
          <div class="image">
-         <a href="https://www.vecteezy.com/free-png/bread"><img src="img/home-img-2.png" alt="una barra de pan"></a>
+         <a href="https://www.vecteezy.com/free-png/bread"><img src="img/home-img-5.png" alt="una barra de pan"></a>
          </div>
          <div class="content">
             <span>Directo del horno</span>
@@ -110,7 +110,7 @@ include 'modelo_cesta.php';
       <h3>panader&iacute;a</h3>
    </a>
 
-   <a href="categorias.php?categoria=carniceria" class="swiper-slide slide">
+   <a href="categorias.php?categoria=carne" class="swiper-slide slide">
       <img src="img/categoria/icon-14.png" alt="una silueta de un pollo en una balanza">
       <h3>carnicer&iacute;a</h3>
    </a>

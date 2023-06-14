@@ -287,7 +287,7 @@ section {
   background-color: #333;
 }
 .category .slide:hover img {
-  filter: #cccccc;
+  filter: invert(100%);
 }
 .category .slide:hover h3 {
   color: #fff;
@@ -764,6 +764,9 @@ section {
   #menu-btn {
     display: inline-block;
   }
+  .home-bg {
+    background: url(../img/home-bg-white.jpg) no-repeat;
+  }
   .header .flex .navbar {
     position: absolute;
     top: 99%;
@@ -794,6 +797,9 @@ section {
 @media (max-width: 450px) {
   html {
     font-size: 50%;
+  }
+  .home-bg {
+    background: url(../img/home-bg-white.jpg) no-repeat;
   }
   .heading {
     font-size: 3rem;

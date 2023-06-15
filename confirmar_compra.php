@@ -10,6 +10,7 @@ require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 
 require_once('vendor/tecnickcom/tcpdf/tcpdf.php');
 require_once('mi_pdf.php');
+require_once ('process_payment.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -114,11 +115,11 @@ function generarFacturaPDF($conex,$id_usuario,$id_pedido_string,$nombre,$domicil
 
    $pdf->Line(20, $currY+4, 195, $currY+4);
 
-   // output the total row
+  
    $pdf->CreateTextBox('Total: ', 20, $currY+5, 135, 10, 10, 'B', 'R');
    $pdf->CreateTextBox('€'.number_format($total, 2, '.', ''), 140, $currY+5, 30, 10, 10, 'B', 'R');
 
-   // some payment instructions or information
+  
    $pdf->setXY(20, $currY+30);
    $pdf->SetFont(PDF_FONT_NAME_MAIN, '', 10);
    $pdf->MultiCell(175, 10, 'De acuerdo con lo establecido en el Reglamento Europeo 2016/679 y la normativa 
@@ -163,7 +164,7 @@ if(isset($_POST['pedido'])){
       if ($ref_pedido->rowCount() > 0) {
          $row = $ref_pedido->fetch(PDO::FETCH_ASSOC);
          $id_pedido = $row['id'];
-         $id_pedido_string = strval($id_pedido); // Convert the ID to a string
+         $id_pedido_string = strval($id_pedido); 
      }
       
       // Redactar los detalles del pedido para el correo electrónico
@@ -181,8 +182,9 @@ if(isset($_POST['pedido'])){
       $vaciar_cesta = $conex->prepare("DELETE FROM cesta WHERE id_usuario = ?");
       $vaciar_cesta->execute([$id_usuario]);
 
-      header('refresh:2;location:index.php');
-      $mensaje[] = 'pedido realizado con éxito!';
+      createStripeCheckoutSession();
+      /*header('refresh:2;location:index.php');
+      $mensaje[] = 'pedido realizado con éxito!';*/
    }else{
       $mensaje[] = 'tu carro esta vacio';
    }
@@ -201,7 +203,7 @@ if(isset($_POST['pedido'])){
    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-   <link rel="stylesheet" href="css/ma.css">
+   <link rel="stylesheet" href="css/main.css">
 
 </head>
 <body>

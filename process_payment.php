@@ -3,6 +3,7 @@
 require_once 'vendor/autoload.php';
 require_once 'secrets.php';
 
+function createStripeCheckoutSession() {
 \Stripe\Stripe::setApiKey('sk_test_51NFvMxCPuZzMRu6fVusSxnDPZIc4yd6TgZ2zwfB13xMS7lkeVDL0fCczNcwgBGt9nVtifE8eMt4WKQinn7mADsbf002KazM2fJ');
 header('Content-Type: application/json');
 
@@ -17,8 +18,12 @@ $checkout_session = \Stripe\Checkout\Session::create([
   ]],
   'mode' => 'payment',
   'success_url' => $YOUR_DOMAIN . '/success.php',
-  'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+  'cancel_url' => $YOUR_DOMAIN . '/cancel.php',
 ]);
 
 header("HTTP/1.1 303 See Other");
 header("Location: " . $checkout_session->url);
+
+}
+
+?>

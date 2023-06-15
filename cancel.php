@@ -23,13 +23,8 @@ function getOrderId($conex, $id_usuario){
      return $id_pedido_string;
 }
 
-function actualizarEstatusPago($conex, $id_pedido){
-   $actualizar_estatus  = $conex->prepare("UPDATE pedidos SET estatus_pago = 'pagado' WHERE id = ?");
-   $actualizar_estatus-> execute([$id_pedido]);
-}
-
 $id_pedido = getOrderId($conex, $id_usuario);
-actualizarEstatusPago($conex, $id_pedido);
+
 
 ?>
 
@@ -52,7 +47,8 @@ actualizarEstatusPago($conex, $id_pedido);
 
 <section class="orders">
 
-   <h1 class="heading">PAGO EXITOSO - DATOS PEDIDO</h1>
+   <h1 class="heading">PAGO NO EXITOSO - DATOS PEDIDO</h1>
+    <p>Ponganse en contacto con nuestro personal de atención al cliente</p>
 
    <div class="box-container">
 
